@@ -1,7 +1,6 @@
 "use client"
 
-import { Mic, MessageCircle, Zap, Monitor } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Monitor, Zap, Cpu, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "@/components/language-selector"
 import { useLanguage } from "@/contexts/language-context"
@@ -10,189 +9,203 @@ import Link from "next/link"
 export default function HomePage() {
   const { t, currentLanguage } = useLanguage()
 
-  // Debug simplificado
-  console.log("🏠 HomePage render - language:", currentLanguage, "startSession:", t.startSession)
-
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Language Selector Flotante */}
-      <LanguageSelector />
+    <div className="min-h-screen bg-black relative overflow-hidden font-mono">
+      {/* CRT Screen Effect */}
+      <div className="absolute inset-0 bg-gradient-radial from-green-900/10 via-transparent to-black/50"></div>
 
-      {/* Animated background grid */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-cyan-900/20">
+      {/* Scanlines Effect */}
+      <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute inset-0"
+          className="h-full w-full bg-gradient-to-b from-transparent via-green-400/5 to-transparent bg-repeat-y animate-pulse"
           style={{
-            backgroundImage: `
-            linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)
-          `,
-            backgroundSize: "50px 50px",
+            backgroundImage:
+              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(34, 197, 94, 0.03) 2px, rgba(34, 197, 94, 0.03) 4px)",
+            animation: "scanlines 0.1s linear infinite",
           }}
         ></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-        {/* Header - Sin selector de idiomas */}
-        <div className="text-center pt-4 sm:pt-8 pb-8 sm:pb-12">
-          <div className="mb-6 sm:mb-8">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4 font-mono tracking-wider">
-              A.L.F.R.E.D
-            </h1>
-            <div className="text-sm sm:text-base md:text-lg text-cyan-300 font-mono tracking-widest mb-2">
-              {t.alfredSubtitle1}
-            </div>
-            <div className="text-sm sm:text-base md:text-lg text-cyan-300 font-mono tracking-widest mb-4">
-              {t.alfredSubtitle2}
-            </div>
-            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full shadow-lg shadow-cyan-400/50"></div>
+      {/* Language Selector - Estilo Pip-Boy */}
+      <div className="absolute top-4 right-4 z-50">
+        <LanguageSelector />
+      </div>
+
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-6">
+        {/* Terminal Header */}
+        <div className="border-2 border-green-400 bg-black/80 p-6 mb-6 relative">
+          <div className="absolute top-2 left-2 flex space-x-1">
+            <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+            <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
           </div>
-          <p className="text-lg sm:text-xl text-gray-300 font-mono px-4">
-            {">"} {t.conversationalAI} {"<"}
-          </p>
-          <p className="text-xs sm:text-sm text-yellow-400 font-mono mt-2 px-4">
-            {">"} {t.languagesSupported} {"<"}
-          </p>
-        </div>
 
-        {/* Interface Selection */}
-        <div className="flex flex-col lg:flex-row justify-center gap-6 mb-8 sm:mb-12 px-4">
-          {/* Standard Interface */}
-          <Card className="bg-black/50 border-2 border-cyan-400/50 hover:border-cyan-400 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-400/25 backdrop-blur-sm w-full max-w-md">
-            <CardHeader className="p-4 sm:p-6">
-              <CardTitle className="flex items-center justify-center text-cyan-300 font-mono text-lg sm:text-xl">
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <Mic className="w-6 h-6 sm:w-8 sm:h-8 text-cyan-400" />
-                  <span className="text-sm sm:text-base">+</span>
-                  <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />
-                </div>
-              </CardTitle>
-              <div className="text-center">
-                <h3 className="text-cyan-300 font-mono text-base sm:text-lg font-bold">STANDARD INTERFACE</h3>
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-gray-300 mb-6 font-mono leading-relaxed text-center text-sm sm:text-base space-y-1">
-                <p>{">"} Modern & Clean Design</p>
-                <p>
-                  {">"} {t.vocalTextCommunication}
-                </p>
-                <p>
-                  {">"} {t.neuralTranscription}
-                </p>
-                <p>
-                  {">"} {t.realtimeSynthesis}
-                </p>
-              </div>
-              <Link href="/voice-chat">
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-black font-mono font-bold py-3 text-sm sm:text-lg border-0 shadow-lg shadow-cyan-400/25 hover:shadow-cyan-400/50 transition-all duration-300">
-                  LAUNCH STANDARD
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <div className="text-center pt-8">
+            <div className="text-green-400 text-xs mb-2 tracking-widest">ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL</div>
+            <div className="text-green-400 text-xs mb-4">ENTER PASSWORD NOW</div>
 
-          {/* Pip-Boy Interface */}
-          <Card className="bg-black/50 border-2 border-green-400/50 hover:border-green-400 transition-all duration-300 hover:shadow-lg hover:shadow-green-400/25 backdrop-blur-sm w-full max-w-md">
-            <CardHeader className="p-4 sm:p-6">
-              <CardTitle className="flex items-center justify-center text-green-300 font-mono text-lg sm:text-xl">
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <Monitor className="w-6 h-6 sm:w-8 sm:h-8 text-green-400" />
-                  <span className="text-sm sm:text-base">+</span>
-                  <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400" />
-                </div>
-              </CardTitle>
-              <div className="text-center">
-                <h3 className="text-green-300 font-mono text-base sm:text-lg font-bold">PIP-BOY INTERFACE</h3>
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-gray-300 mb-6 font-mono leading-relaxed text-center text-sm sm:text-base space-y-1">
-                <p>{">"} Retrofuturistic Terminal</p>
-                <p>{">"} Animated Avatar System</p>
-                <p>{">"} Cyberpunk Aesthetics</p>
-                <p>{">"} Fallout-Inspired Design</p>
-              </div>
-              <div className="text-center mb-4">
-                <div className="text-xs text-green-400 font-mono animate-pulse">🤖 EXPERIMENTAL INTERFACE 🤖</div>
-              </div>
-              <Link href="/pipboy">
-                <Button className="w-full bg-gradient-to-r from-green-500 to-yellow-500 hover:from-green-400 hover:to-yellow-400 text-black font-mono font-bold py-3 text-sm sm:text-lg border-0 shadow-lg shadow-green-400/25 hover:shadow-green-400/50 transition-all duration-300">
-                  LAUNCH PIP-BOY
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-green-400 mb-4 tracking-wider glow-text">A.L.F.R.E.D</h1>
 
-        {/* Tech Specs */}
-        <Card className="bg-black/50 border-2 border-yellow-400/50 hover:border-yellow-400 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-400/25 backdrop-blur-sm mx-4 mb-4 sm:mb-6 lg:mb-8">
-          <CardContent className="p-4 sm:p-6 lg:p-8">
-            <div className="flex items-center justify-center mb-6 sm:mb-8">
-              <Zap className="w-8 h-8 sm:w-10 sm:h-10 mr-2 sm:mr-3 text-yellow-400" />
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-300 font-mono tracking-wider text-center">
-                {t.technicalSpecs}
-              </h2>
+            <div className="text-green-300 text-sm tracking-widest mb-2">{t.alfredSubtitle1}</div>
+            <div className="text-green-300 text-sm tracking-widest mb-4">{t.alfredSubtitle2}</div>
+
+            <div className="text-green-400 text-xs">
+              {">"} {t.conversationalAI} {"<"}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-              <div className="border-2 border-cyan-400/50 rounded-lg p-4 sm:p-6 bg-black/40 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-400/25 transition-all duration-300">
-                <div className="text-cyan-400 font-mono text-sm sm:text-base md:text-lg font-bold mb-3 tracking-wider">
-                  {t.neuralEngine}
+            <div className="text-amber-400 text-xs mt-1">
+              {">"} {t.languagesSupported} {"<"}
+            </div>
+          </div>
+        </div>
+
+        {/* System Status */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="border border-green-400 bg-black/60 p-4">
+            <div className="text-green-400 text-xs mb-2">SYSTEM STATUS</div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-green-300 text-xs">{t.systemOperational}</span>
+            </div>
+          </div>
+
+          <div className="border border-green-400 bg-black/60 p-4">
+            <div className="text-green-400 text-xs mb-2">AI CORE</div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+              <span className="text-green-300 text-xs">{t.aiActive}</span>
+            </div>
+          </div>
+
+          <div className="border border-green-400 bg-black/60 p-4">
+            <div className="text-green-400 text-xs mb-2">INTERFACE</div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+              <span className="text-green-300 text-xs">{t.interfaceReady}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Interface Access */}
+        <div className="mb-6">
+          <div className="border-2 border-green-400 bg-black/80 hover:bg-green-900/20 transition-all duration-300">
+            <div className="border-b border-green-400 p-4 bg-green-400/10">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <Monitor className="w-6 h-6 text-green-400" />
+                  <MessageCircle className="w-6 h-6 text-green-400" />
+                  <Zap className="w-6 h-6 text-amber-400" />
                 </div>
-                <div className="text-gray-300 font-mono text-xs sm:text-sm">{">"} Groq LPU Architecture</div>
-                <div className="text-cyan-300 font-mono text-xs mt-2 opacity-70">
+                <div className="text-green-400 text-sm font-bold">{t.mainInterface}</div>
+              </div>
+            </div>
+
+            <div className="p-8">
+              <h3 className="text-green-400 text-2xl font-bold mb-6 tracking-wider text-center">
+                {t.alfredTerminalInterface}
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-sm">
+                <div className="space-y-2">
+                  <div className="text-green-300">
+                    {">"} {t.retrofuturisticDesign}
+                  </div>
+                  <div className="text-green-300">
+                    {">"} {t.realtimeVoiceComm}
+                  </div>
+                  <div className="text-green-300">
+                    {">"} {t.advancedNeuralTranscription}
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-green-300">
+                    {">"} {t.animatedAvatarSystem}
+                  </div>
+                  <div className="text-green-300">
+                    {">"} {t.multilingualSupport5Lang}
+                  </div>
+                  <div className="text-green-300">
+                    {">"} {t.pipboyAesthetics}
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center mb-6">
+                <div className="text-amber-400 text-sm animate-pulse mb-2">🤖 {t.advancedAiInterface} 🤖</div>
+                <div className="text-green-400 text-xs">
+                  {">"} {t.voiceTextCommEnabled} {"<"}
+                </div>
+              </div>
+
+              <Link href="/chat">
+                <Button className="w-full bg-green-600 hover:bg-green-500 text-black font-bold py-4 text-lg border-2 border-green-400 transition-all duration-300 retro-button">
+                  {t.initializeAlfredInterface}
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Technical Specifications */}
+        <div className="border-2 border-green-400 bg-black/80 mb-6">
+          <div className="border-b border-green-400 p-3 bg-green-400/10">
+            <div className="flex items-center space-x-2">
+              <Cpu className="w-4 h-4 text-green-400" />
+              <span className="text-green-400 text-sm font-bold tracking-wider">{t.technicalSpecs}</span>
+            </div>
+          </div>
+
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="border border-green-400 p-4 bg-black/40">
+                <div className="text-green-400 text-sm font-bold mb-3 tracking-wider">{t.neuralEngine}</div>
+                <div className="text-green-300 text-xs mb-1">{">"} Groq LPU Architecture</div>
+                <div className="text-green-300 text-xs opacity-70">
                   {">"} {t.ultraFastInference}
                 </div>
               </div>
-              <div className="border-2 border-purple-400/50 rounded-lg p-4 sm:p-6 bg-black/40 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-400/25 transition-all duration-300">
-                <div className="text-purple-400 font-mono text-sm sm:text-base md:text-lg font-bold mb-3 tracking-wider">
-                  {t.linguisticModel}
-                </div>
-                <div className="text-gray-300 font-mono text-xs sm:text-sm">{">"} Llama 3.1 8B Instant</div>
-                <div className="text-purple-300 font-mono text-xs mt-2 opacity-70">
+
+              <div className="border border-green-400 p-4 bg-black/40">
+                <div className="text-green-400 text-sm font-bold mb-3 tracking-wider">{t.linguisticModel}</div>
+                <div className="text-green-300 text-xs mb-1">{">"} Llama 3.1 8B Instant</div>
+                <div className="text-green-300 text-xs opacity-70">
                   {">"} {t.advancedReasoning}
                 </div>
               </div>
-              <div className="border-2 border-pink-400/50 rounded-lg p-4 sm:p-6 bg-black/40 hover:border-pink-400 hover:shadow-lg hover:shadow-pink-400/25 transition-all duration-300 md:col-span-1 col-span-1">
-                <div className="text-pink-400 font-mono text-sm sm:text-base md:text-lg font-bold mb-3 tracking-wider">
-                  {t.audioProcessor}
-                </div>
-                <div className="text-gray-300 font-mono text-xs sm:text-sm">{">"} Whisper Large V3</div>
-                <div className="text-pink-300 font-mono text-xs mt-2 opacity-70">
+
+              <div className="border border-green-400 p-4 bg-black/40">
+                <div className="text-green-400 text-sm font-bold mb-3 tracking-wider">{t.audioProcessor}</div>
+                <div className="text-green-300 text-xs mb-1">{">"} Whisper Large V3</div>
+                <div className="text-green-300 text-xs opacity-70">
                   {">"} {t.languagesSupport}
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Status indicators */}
-            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-green-400 font-mono text-xs sm:text-sm">{t.systemOperational}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div
-                  className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"
-                  style={{ animationDelay: "0.5s" }}
-                ></div>
-                <span className="text-blue-400 font-mono text-xs sm:text-sm">{t.aiActive}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div
-                  className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"
-                  style={{ animationDelay: "1s" }}
-                ></div>
-                <span className="text-yellow-400 font-mono text-xs sm:text-sm">{t.interfaceReady}</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Terminal Footer */}
+        <div className="border border-green-400 bg-black/60 p-4 text-center">
+          <div className="text-green-400 text-xs">
+            ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL - COPYRIGHT 2287 ROBCO INDUSTRIES
+          </div>
+          <div className="text-green-300 text-xs mt-1">
+            {">"} PRESS [INITIALIZE] TO ACCESS A.L.F.R.E.D INTERFACE {"<"}
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
-        @keyframes grid-move {
-          0% { transform: translate(0, 0); }
-          100% { transform: translate(50px, 50px); }
+        @keyframes scanlines {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100vh); }
+        }
+        
+        .glow-text {
+          text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+        }
+        
+        .bg-gradient-radial {
+          background: radial-gradient(circle at center, var(--tw-gradient-stops));
         }
       `}</style>
     </div>
