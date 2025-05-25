@@ -42,7 +42,6 @@ export default function HomePage() {
 
           <div className="text-center pt-8">
             <div className="text-green-400 text-xs mb-2 tracking-widest">ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL</div>
-            <div className="text-green-400 text-xs mb-4">ENTER PASSWORD NOW</div>
 
             <h1 className="text-4xl md:text-6xl font-bold text-green-400 mb-4 tracking-wider glow-text">A.L.F.R.E.D</h1>
 

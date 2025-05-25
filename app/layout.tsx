@@ -7,7 +7,7 @@ import { LanguageProvider } from "@/contexts/language-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "A.L.F.R.E.D - Advanced Language Facilitator",
+  title: "A.L.F.R.E.D - Advanced Language Facilitator for Real-Time Engagement & Dialogue",
   description: "Conversational AI system with multilingual support",
     generator: 'v0.dev'
 }
