@@ -186,11 +186,24 @@ export default function HomePage() {
         {/* Terminal Footer */}
         <div className="border border-green-400 bg-black/60 p-4 text-center">
           <div className="text-green-400 text-xs">
-            ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL - COPYRIGHT 2287 ROBCO INDUSTRIES
-          </div>
-          <div className="text-green-300 text-xs mt-1">
-            {">"} PRESS [INITIALIZE] TO ACCESS A.L.F.R.E.D INTERFACE {"<"}
-          </div>
+          ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL - COPYRIGHT 2287 ROBCO INDUSTRIES
+        </div>
+        <div className="text-green-300 text-xs mt-1">
+          {">"} PRESS [INITIALIZE] TO ACCESS A.L.F.R.E.D INTERFACE {"<"}
+        </div>
+        <div className="text-amber-400 text-xs mt-2 border-t border-green-400/30 pt-2">
+          {">"} CREATED BY: BRIAN CABRERA - NEURAL ARCHITECT {"<"}
+        </div>
+        <div className="text-cyan-400 text-xs mt-1">
+          <a
+            href="https://links.briancabrera.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-yellow-400 transition-colors duration-300 underline decoration-dotted"
+          >
+            {">"} ACCESS_CREATOR_PROFILE: links.briancabrera.com {"<"}
+          </a>
+        </div>
         </div>
       </div>
 
