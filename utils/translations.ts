@@ -75,6 +75,9 @@ export interface Translations {
   alfredWillRespond: string
   alfredWillDetect: string
   canCancel: string
+
+  // NEW: Unsupported language indicator
+  unsupported: string
 }
 
 export const translations: Record<Language, Translations> = {
@@ -153,6 +156,8 @@ export const translations: Record<Language, Translations> = {
     alfredWillRespond: "Alfred responderá en tu idioma con acento nativo",
     alfredWillDetect: "Alfred detectará tu idioma y responderá apropiadamente",
     canCancel: "💡 Puedes cancelar en el paso 3 para volver a grabar",
+
+    unsupported: "no soportado",
   },
 
   en: {
@@ -230,6 +235,8 @@ export const translations: Record<Language, Translations> = {
     alfredWillRespond: "Alfred will respond in your language with native accent",
     alfredWillDetect: "Alfred will detect your language and respond appropriately",
     canCancel: "💡 You can cancel in step 3 to record again",
+
+    unsupported: "not supported",
   },
 
   fr: {
@@ -307,6 +314,8 @@ export const translations: Record<Language, Translations> = {
     alfredWillRespond: "Alfred répondra dans votre langue avec l'accent natif",
     alfredWillDetect: "Alfred détectera votre langue et répondra de manière appropriée",
     canCancel: "💡 Vous pouvez annuler à l'étape 3 pour réenregistrer",
+
+    unsupported: "non supporté",
   },
 
   it: {
@@ -384,6 +393,8 @@ export const translations: Record<Language, Translations> = {
     alfredWillRespond: "Alfred risponderà nella tua lingua con accento nativo",
     alfredWillDetect: "Alfred rileverà la tua lingua e risponderà appropriatamente",
     canCancel: "💡 Puoi annullare al passo 3 per registrare di nuovo",
+
+    unsupported: "non supportato",
   },
 
   pt: {
@@ -441,7 +452,7 @@ export const translations: Record<Language, Translations> = {
     vocalTextCommunication: "Comunicação vocal e textual integrada",
     neuralTranscription: "Transcrição neural avançada",
     realtimeSynthesis: "Síntese de voz em tempo real",
-    intelligentChat: "Chat inteligente multilíngue",
+    intelligentChat: "Chat inteligente multilingue",
     startSession: "INICIAR SESSÃO COM A.L.F.R.E.D",
     technicalSpecs: "ESPECIFICAÇÕES TÉCNICAS",
     neuralEngine: "MOTOR NEURAL",
@@ -461,6 +472,8 @@ export const translations: Record<Language, Translations> = {
     alfredWillRespond: "Alfred responderá no seu idioma com sotaque nativo",
     alfredWillDetect: "Alfred detectará seu idioma e responderá apropriadamente",
     canCancel: "💡 Você pode cancelar no passo 3 para gravar novamente",
+
+    unsupported: "não suportado",
   },
 }
 

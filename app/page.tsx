@@ -1,6 +1,6 @@
 "use client"
 
-import { Mic, MessageCircle, Zap } from "lucide-react"
+import { Mic, MessageCircle, Zap, Monitor } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "@/components/language-selector"
@@ -55,8 +55,9 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Main Card - Unified Interface */}
-        <div className="flex justify-center mb-8 sm:mb-12 px-4">
+        {/* Interface Selection */}
+        <div className="flex flex-col lg:flex-row justify-center gap-6 mb-8 sm:mb-12 px-4">
+          {/* Standard Interface */}
           <Card className="bg-black/50 border-2 border-cyan-400/50 hover:border-cyan-400 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-400/25 backdrop-blur-sm w-full max-w-md">
             <CardHeader className="p-4 sm:p-6">
               <CardTitle className="flex items-center justify-center text-cyan-300 font-mono text-lg sm:text-xl">
@@ -67,11 +68,12 @@ export default function HomePage() {
                 </div>
               </CardTitle>
               <div className="text-center">
-                <h3 className="text-cyan-300 font-mono text-base sm:text-lg font-bold">{t.unifiedInterface}</h3>
+                <h3 className="text-cyan-300 font-mono text-base sm:text-lg font-bold">STANDARD INTERFACE</h3>
               </div>
             </CardHeader>
             <CardContent className="p-4 sm:p-6">
               <div className="text-gray-300 mb-6 font-mono leading-relaxed text-center text-sm sm:text-base space-y-1">
+                <p>{">"} Modern & Clean Design</p>
                 <p>
                   {">"} {t.vocalTextCommunication}
                 </p>
@@ -81,18 +83,42 @@ export default function HomePage() {
                 <p>
                   {">"} {t.realtimeSynthesis}
                 </p>
-                <p>
-                  {">"} {t.intelligentChat}
-                </p>
-              </div>
-              <div className="text-center mb-4">
-                <div className="text-xs text-yellow-400 font-mono">
-                  🇪🇸 Español • 🇺🇸 English • 🇫🇷 Français • 🇮🇹 Italiano • 🇧🇷 Português
-                </div>
               </div>
               <Link href="/voice-chat">
                 <Button className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-black font-mono font-bold py-3 text-sm sm:text-lg border-0 shadow-lg shadow-cyan-400/25 hover:shadow-cyan-400/50 transition-all duration-300">
-                  {t.startSession}
+                  LAUNCH STANDARD
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Pip-Boy Interface */}
+          <Card className="bg-black/50 border-2 border-green-400/50 hover:border-green-400 transition-all duration-300 hover:shadow-lg hover:shadow-green-400/25 backdrop-blur-sm w-full max-w-md">
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center justify-center text-green-300 font-mono text-lg sm:text-xl">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Monitor className="w-6 h-6 sm:w-8 sm:h-8 text-green-400" />
+                  <span className="text-sm sm:text-base">+</span>
+                  <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400" />
+                </div>
+              </CardTitle>
+              <div className="text-center">
+                <h3 className="text-green-300 font-mono text-base sm:text-lg font-bold">PIP-BOY INTERFACE</h3>
+              </div>
+            </CardHeader>
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-gray-300 mb-6 font-mono leading-relaxed text-center text-sm sm:text-base space-y-1">
+                <p>{">"} Retrofuturistic Terminal</p>
+                <p>{">"} Animated Avatar System</p>
+                <p>{">"} Cyberpunk Aesthetics</p>
+                <p>{">"} Fallout-Inspired Design</p>
+              </div>
+              <div className="text-center mb-4">
+                <div className="text-xs text-green-400 font-mono animate-pulse">🤖 EXPERIMENTAL INTERFACE 🤖</div>
+              </div>
+              <Link href="/pipboy">
+                <Button className="w-full bg-gradient-to-r from-green-500 to-yellow-500 hover:from-green-400 hover:to-yellow-400 text-black font-mono font-bold py-3 text-sm sm:text-lg border-0 shadow-lg shadow-green-400/25 hover:shadow-green-400/50 transition-all duration-300">
+                  LAUNCH PIP-BOY
                 </Button>
               </Link>
             </CardContent>

@@ -18,6 +18,7 @@ import {
   detectUnsupportedLanguage,
   isLanguageSupported,
   getLanguageName,
+  getLanguageDisplayName,
 } from "@/utils/language-detector"
 
 export default function VoiceChatPage() {
@@ -28,11 +29,86 @@ export default function VoiceChatPage() {
   const [userLanguage, setUserLanguage] = useState<string>("es-ES")
   const [debugInfo, setDebugInfo] = useState<string>("")
   const lastProcessedMessageId = useRef<string>("")
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
+  const [isProcessingUnsupported, setIsProcessingUnsupported] = useState(false)
 
-  const { messages, append, isLoading, input, handleInputChange, handleSubmit } = useChat()
+  const { messages, append, isLoading, input, handleInputChange, handleSubmit, setMessages } = useChat()
   const { isRecording, audioBlob, error, startRecording, forceStop, clearRecording } = useAudioRecorder()
   const { speak, repeatSpeak, stop, isSpeaking, clearLastSpoken } = useTextToSpeech()
   const { t, updateLanguageFromDetection } = useLanguage()
+
+  // Función para crear mensaje de idioma no soportado
+  const createUnsupportedLanguageMessage = (detectedLang: string) => {
+    const unsupportedMessage = `Lo siento, pero no estoy configurado para comunicarme en ese idioma. Actualmente solo puedo conversar en estos 5 idiomas: español, english, português, français, italiano.`
+
+    return {
+      id: `unsupported-${Date.now()}`,
+      role: "assistant" as const,
+      content: unsupportedMessage,
+      createdAt: new Date(),
+    }
+  }
+
+  // Función personalizada para manejar append con detección de idioma
+  const handleAppendWithLanguageCheck = async (message: { role: "user" | "assistant"; content: string }) => {
+    if (message.role === "user") {
+      // Detectar idioma antes de enviar
+      const detectedLang = detectLanguage(message.content)
+      const unsupportedLang = detectUnsupportedLanguage(message.content)
+
+      setDebugInfo(`Texto: "${message.content}" → Detectado: ${detectedLang}`)
+
+      if (unsupportedLang || !isLanguageSupported(detectedLang)) {
+        console.log(`🚫 Frontend: Idioma no soportado detectado: ${unsupportedLang || detectedLang}`)
+
+        // Agregar mensaje del usuario inmediatamente
+        const userMessage = {
+          id: `user-${Date.now()}`,
+          role: "user" as const,
+          content: message.content,
+          createdAt: new Date(),
+        }
+
+        setMessages((prev) => [...prev, userMessage])
+        setUserLanguage(detectedLang)
+
+        // Activar estado de procesamiento
+        setIsProcessingUnsupported(true)
+
+        // Simular tiempo de procesamiento de Alfred (1.5-2.5 segundos)
+        const processingTime = 1500 + Math.random() * 1000 // Entre 1.5 y 2.5 segundos
+
+        setTimeout(() => {
+          // Crear respuesta de idioma no soportado después del delay
+          const unsupportedResponse = createUnsupportedLanguageMessage(unsupportedLang || detectedLang)
+          setMessages((prev) => [...prev, unsupportedResponse])
+          setCurrentLanguage("es-ES") // La respuesta está en español
+          setIsProcessingUnsupported(false) // Desactivar estado de procesamiento
+        }, processingTime)
+
+        return
+      }
+
+      setUserLanguage(detectedLang)
+      // NO llamar a updateLanguageFromDetection aquí
+    }
+
+    // Si el idioma es soportado, usar el append normal
+    try {
+      await append(message)
+    } catch (error: any) {
+      // Manejar error del backend si detecta idioma no soportado
+      if (error?.message?.includes("UNSUPPORTED_LANGUAGE")) {
+        console.log("🚫 Backend: Error de idioma no soportado capturado")
+        const unsupportedResponse = createUnsupportedLanguageMessage("unknown")
+        setMessages((prev) => [...prev, unsupportedResponse])
+        setCurrentLanguage("es-ES")
+      } else {
+        console.error("Error en chat:", error)
+      }
+    }
+  }
 
   // Debug para verificar que el idioma está cambiando
   console.log("Current UI language:", t)
@@ -65,20 +141,7 @@ export default function VoiceChatPage() {
       const { text } = await response.json()
 
       if (text && text.trim()) {
-        // Detectar idioma y mostrar debug info
-        const detectedUserLang = detectLanguage(text)
-        setDebugInfo(`Texto: "${text}" → Detectado: ${detectedUserLang}`)
-
-        // Verificar si es un idioma no soportado
-        const unsupportedLang = detectUnsupportedLanguage(text)
-
-        if (unsupportedLang || !isLanguageSupported(detectedUserLang)) {
-          console.warn("Idioma no soportado detectado:", unsupportedLang || detectedUserLang)
-        }
-
-        setUserLanguage(detectedUserLang)
-        updateLanguageFromDetection(detectedUserLang)
-        await append({ role: "user", content: text })
+        await handleAppendWithLanguageCheck({ role: "user", content: text })
         clearRecording()
       } else {
         throw new Error("No se detectó audio válido")
@@ -103,6 +166,10 @@ export default function VoiceChatPage() {
       transcribeAudio(audioBlob)
     } else {
       // PASO 1: Iniciar grabación
+      // Mutear a Alfred antes de comenzar a grabar
+      if (isSpeaking) {
+        stop()
+      }
       clearRecording()
       startRecording()
     }
@@ -117,20 +184,7 @@ export default function VoiceChatPage() {
   const handleTextSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (textInput.trim() && !isLoading) {
-      // Detectar idioma y mostrar debug info
-      const detectedUserLang = detectLanguage(textInput)
-      setDebugInfo(`Texto: "${textInput}" → Detectado: ${detectedUserLang}`)
-
-      // Verificar si es un idioma no soportado
-      const unsupportedLang = detectUnsupportedLanguage(textInput)
-
-      if (unsupportedLang || !isLanguageSupported(detectedUserLang)) {
-        console.warn("Idioma no soportado detectado:", unsupportedLang || detectedUserLang)
-      }
-
-      setUserLanguage(detectedUserLang)
-      updateLanguageFromDetection(detectedUserLang)
-      await append({ role: "user", content: textInput.trim() })
+      await handleAppendWithLanguageCheck({ role: "user", content: textInput.trim() })
       setTextInput("")
     }
   }
@@ -187,11 +241,21 @@ export default function VoiceChatPage() {
     ) {
       lastProcessedMessageId.current = lastMessage.id
 
-      // Detectar idioma de la respuesta de Alfred
-      const detectedLang = detectLanguage(lastMessage.content)
-      setCurrentLanguage(detectedLang)
+      // No hablar si es un mensaje de idioma no soportado
+      const isUnsupportedLanguageMessage = lastMessage.content.includes(
+        "Lo siento, pero no estoy configurado para comunicarme en ese idioma",
+      )
 
-      speak(lastMessage.content)
+      if (!isUnsupportedLanguageMessage) {
+        // Detectar idioma de la respuesta de Alfred
+        const detectedLang = detectLanguage(lastMessage.content)
+        setCurrentLanguage(detectedLang)
+        speak(lastMessage.content)
+      } else {
+        console.log("🔇 Mensaje de idioma no soportado - no se reproducirá con voz")
+        // Solo actualizar el idioma detectado sin hablar
+        setCurrentLanguage("es-ES")
+      }
     }
   }, [messages, isSpeaking, isLoading, speak])
 
@@ -203,6 +267,7 @@ export default function VoiceChatPage() {
       setCurrentLanguage("es-ES")
       setUserLanguage("es-ES")
       setDebugInfo("")
+      setIsProcessingUnsupported(false) // Limpiar estado de procesamiento
     }
   }, [messages.length, clearLastSpoken])
 
@@ -213,6 +278,18 @@ export default function VoiceChatPage() {
       repeatSpeak(lastMessage.content)
     }
   }
+
+  // Función para hacer scroll al final del contenedor de mensajes
+  const scrollToBottom = () => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
+    }
+  }
+
+  // Auto-scroll al final cuando hay nuevos mensajes
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
@@ -331,7 +408,7 @@ export default function VoiceChatPage() {
         {/* Chat Messages - Responsive Height */}
         <Card className="mb-4 sm:mb-6 bg-black/70 border-2 border-purple-400/30 backdrop-blur-sm">
           <CardContent className="p-3 sm:p-4">
-            <div className="h-64 sm:h-80 md:h-96 overflow-y-auto space-y-3 sm:space-y-4">
+            <div ref={messagesContainerRef} className="h-64 sm:h-80 md:h-96 overflow-y-auto space-y-3 sm:space-y-4">
               {messages.length === 0 ? (
                 <div className="text-center text-cyan-300 mt-4 sm:mt-8 font-mono">
                   <div className="text-xl sm:text-2xl mb-4">🤖</div>
@@ -357,32 +434,47 @@ export default function VoiceChatPage() {
                   </div>
                 </div>
               ) : (
-                messages.map((message) => (
-                  <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+                messages.map((message) => {
+                  // Detectar idioma y si es no soportado
+                  const detectedLang = detectLanguage(message.content)
+                  const unsupportedLang = detectUnsupportedLanguage(message.content)
+                  const displayName = getLanguageDisplayName(
+                    detectedLang,
+                    unsupportedLang,
+                    currentLanguage.split("-")[0], // Convertir "es-ES" a "es"
+                    t.unsupported,
+                  )
+
+                  return (
                     <div
-                      className={`max-w-[85%] sm:max-w-xs lg:max-w-md px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-mono border-2 ${
-                        message.role === "user"
-                          ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border-cyan-400/50 text-cyan-100"
-                          : "bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-400/50 text-purple-100"
-                      }`}
+                      key={message.id}
+                      className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                     >
-                      <div className="text-xs opacity-70 mb-1 flex items-center justify-between">
-                        <span>{message.role === "user" ? "USUARIO" : "ALFRED"}</span>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-yellow-400 text-xs">
-                            {getLanguageName(detectLanguage(message.content))}
-                          </span>
-                          {message.role === "assistant" && isSpeaking && (
-                            <span className="text-green-400 animate-pulse">🔊</span>
-                          )}
+                      <div
+                        className={`max-w-[85%] sm:max-w-xs lg:max-w-md px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-mono border-2 ${
+                          message.role === "user"
+                            ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border-cyan-400/50 text-cyan-100"
+                            : "bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-400/50 text-purple-100"
+                        }`}
+                      >
+                        <div className="text-xs opacity-70 mb-1 flex items-center justify-between">
+                          <span>{message.role === "user" ? "USUARIO" : "ALFRED"}</span>
+                          <div className="flex items-center space-x-2">
+                            <span className={`text-xs ${unsupportedLang ? "text-red-400" : "text-yellow-400"}`}>
+                              {displayName}
+                            </span>
+                            {message.role === "assistant" && isSpeaking && (
+                              <span className="text-green-400 animate-pulse">🔊</span>
+                            )}
+                          </div>
                         </div>
+                        <p className="text-xs sm:text-sm leading-relaxed">{message.content}</p>
                       </div>
-                      <p className="text-xs sm:text-sm leading-relaxed">{message.content}</p>
                     </div>
-                  </div>
-                ))
+                  )
+                })
               )}
-              {isLoading && (
+              {(isLoading || isProcessingUnsupported) && (
                 <div className="flex justify-start">
                   <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-2 border-yellow-400/50 text-yellow-100 max-w-[85%] sm:max-w-xs lg:max-w-md px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-mono">
                     <div className="text-xs opacity-70 mb-1">ALFRED</div>

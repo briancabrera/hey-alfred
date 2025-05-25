@@ -17,34 +17,24 @@ export async function POST(req: Request) {
       const detectedLang = detectLanguage(lastUserMessage.content)
 
       if (unsupportedLang || !isLanguageSupported(detectedLang)) {
-        // Responder en español indicando los idiomas soportados
-        const unsupportedResponse = `Lo siento, pero no estoy configurado para comunicarme en ese idioma. 
+        console.log(
+          `🚫 Idioma no soportado detectado: ${unsupportedLang || detectedLang} - Devolviendo error para manejo en frontend`,
+        )
 
-Actualmente solo puedo conversar en:
-🇪🇸 Español
-🇺🇸 English  
-🇫🇷 Français
-🇮🇹 Italiano
-🇧🇷 Português
-
-Por favor, escribe tu mensaje en uno de estos idiomas y estaré encantado de ayudarte.
-
----
-
-I'm sorry, but I'm not configured to communicate in that language.
-
-I can currently only converse in:
-🇪🇸 Spanish
-🇺🇸 English
-🇫🇷 French
-🇮🇹 Italian
-🇧🇷 Portuguese
-
-Please write your message in one of these languages and I'll be happy to help you.`
-
-        return new Response(unsupportedResponse, {
-          headers: { "Content-Type": "text/plain" },
-        })
+        // Devolver error específico para que el frontend lo maneje
+        return new Response(
+          JSON.stringify({
+            error: "UNSUPPORTED_LANGUAGE",
+            detectedLanguage: unsupportedLang || detectedLang,
+            message: "Language not supported",
+          }),
+          {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        )
       }
     }
 
