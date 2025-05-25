@@ -203,17 +203,15 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
               repeat: isSpeaking || isActive ? Number.POSITIVE_INFINITY : 0,
               delay: bar.delay,
               ease: "easeInOut",
-              // Añadir transiciones suaves para cambios de estado
-              height: {
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-                mass: 0.8,
-              },
-              boxShadow: {
-                duration: 0.8,
-                ease: "easeInOut",
-              },
+              // Transiciones suaves solo cuando cambia el estado, no durante la animación
+              ...(isSpeaking || isActive
+                ? {}
+                : {
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 12,
+                    mass: 0.6,
+                  }),
             }}
           />
         ))}
