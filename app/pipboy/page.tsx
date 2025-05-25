@@ -187,13 +187,6 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
                       `${bar.maxHeight * 0.8}px`,
                       `${bar.baseHeight}px`,
                     ],
-                    boxShadow: [
-                      "0 0 5px #00ff00",
-                      "0 0 15px #00ff00, 0 0 25px #00ff00",
-                      "0 0 8px #00ff00",
-                      "0 0 12px #00ff00, 0 0 20px #00ff00",
-                      "0 0 5px #00ff00",
-                    ],
                   }
                 : isActive
                   ? {
@@ -218,17 +211,11 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
       {/* Texto A.L.F.R.E.D - ABAJO de las barras */}
       <motion.div
         className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-center"
-        animate={
-          isSpeaking
-            ? {
-                textShadow: ["0 0 5px #00ff00", "0 0 15px #00ff00, 0 0 25px #00ff00", "0 0 5px #00ff00"],
-              }
-            : {
-                textShadow: ["0 0 5px #00ff00", "0 0 10px #00ff00", "0 0 5px #00ff00"],
-              }
-        }
+        animate={{
+          textShadow: ["0 0 5px #00ff00", "0 0 10px #00ff00", "0 0 5px #00ff00"],
+        }}
         transition={{
-          duration: isSpeaking ? 0.6 : 3,
+          duration: 3,
           repeat: Number.POSITIVE_INFINITY,
         }}
       >
@@ -1051,5 +1038,5 @@ export default function PipBoyInterface() {
         .pipboy-scrollbar:hover {
           box-shadow: inset 2px 0 4px rgba(74, 222, 128, 0.2);
         }
-      `}</style>
+      `}</style>\
     </div>
