@@ -159,10 +159,10 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
   // Generar 12 barras con diferentes alturas y delays
   const bars = Array.from({ length: 12 }, (_, i) => ({
     id: i,
-    baseHeight: 20 + Math.random() * 40, // Altura base entre 20-60
-    maxHeight: 60 + Math.random() * 80, // Altura máxima entre 60-140
+    baseHeight: 15 + Math.random() * 25, // Altura base entre 15-40 (antes 20-60)
+    maxHeight: 40 + Math.random() * 50, // Altura máxima entre 40-90 (antes 60-140)
     delay: Math.random() * 0.5, // Delay aleatorio hasta 0.5s
-    speed: 0.3 + Math.random() * 0.4, // Velocidad entre 0.3-0.7s
+    speed: 0.5 + Math.random() * 0.3, // Velocidad entre 0.5-0.8s
   }))
 
   return (
@@ -187,13 +187,6 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
                       `${bar.maxHeight * 0.8}px`,
                       `${bar.baseHeight}px`,
                     ],
-                    boxShadow: [
-                      "0 0 5px #00ff00",
-                      "0 0 15px #00ff00, 0 0 25px #00ff00",
-                      "0 0 8px #00ff00",
-                      "0 0 12px #00ff00, 0 0 20px #00ff00",
-                      "0 0 5px #00ff00",
-                    ],
                   }
                 : isActive
                   ? {
@@ -210,6 +203,15 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
               repeat: isSpeaking || isActive ? Number.POSITIVE_INFINITY : 0,
               delay: bar.delay,
               ease: "easeInOut",
+              // Transiciones suaves solo cuando cambia el estado, no durante la animación
+              ...(isSpeaking || isActive
+                ? {}
+                : {
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 12,
+                    mass: 0.6,
+                  }),
             }}
           />
         ))}
@@ -218,17 +220,11 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
       {/* Texto A.L.F.R.E.D - ABAJO de las barras */}
       <motion.div
         className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-center"
-        animate={
-          isSpeaking
-            ? {
-                textShadow: ["0 0 5px #00ff00", "0 0 15px #00ff00, 0 0 25px #00ff00", "0 0 5px #00ff00"],
-              }
-            : {
-                textShadow: ["0 0 5px #00ff00", "0 0 10px #00ff00", "0 0 5px #00ff00"],
-              }
-        }
+        animate={{
+          textShadow: ["0 0 5px #00ff00", "0 0 10px #00ff00", "0 0 5px #00ff00"],
+        }}
         transition={{
-          duration: isSpeaking ? 0.6 : 3,
+          duration: 3,
           repeat: Number.POSITIVE_INFINITY,
         }}
       >
@@ -400,7 +396,7 @@ export default function PipBoyInterface() {
       // Transcribir audio
       try {
         console.log("🎤 Starting transcription process...")
-        
+
         const formData = new FormData()
         formData.append("audio", audioBlob, "recording.webm")
 
@@ -431,14 +427,14 @@ export default function PipBoyInterface() {
         }
       } catch (error) {
         console.error("💥 Transcription error:", error)
-        
+
         // Show user-friendly error message
         const errorMessage = error instanceof Error ? error.message : "Unknown transcription error"
-        
+
         // You can add a toast notification here or update UI state to show the error
         // For now, just clear the recording so user can try again
         clearRecording()
-        
+
         // Optionally, you could set an error state to show in the UI
         // setTranscriptionError(errorMessage)
       }
@@ -553,9 +549,9 @@ export default function PipBoyInterface() {
 
           {/* Avatar */}
           <div className="mb-10">
-            <AlfredAudioVisualizer 
-              isActive={isActive || isLoading || isProcessingUnsupported} 
-              isSpeaking={isSpeaking} 
+            <AlfredAudioVisualizer
+              isActive={isActive || isLoading || isProcessingUnsupported}
+              isSpeaking={isSpeaking}
             />
           </div>
 
@@ -1053,3 +1049,5 @@ export default function PipBoyInterface() {
         }
       `}</style>
     </div>
+  )
+}
