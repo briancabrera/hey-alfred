@@ -203,6 +203,17 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
               repeat: isSpeaking || isActive ? Number.POSITIVE_INFINITY : 0,
               delay: bar.delay,
               ease: "easeInOut",
+              // Añadir transiciones suaves para cambios de estado
+              height: {
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+                mass: 0.8,
+              },
+              boxShadow: {
+                duration: 0.8,
+                ease: "easeInOut",
+              },
             }}
           />
         ))}
@@ -387,7 +398,7 @@ export default function PipBoyInterface() {
       // Transcribir audio
       try {
         console.log("🎤 Starting transcription process...")
-        
+
         const formData = new FormData()
         formData.append("audio", audioBlob, "recording.webm")
 
@@ -418,14 +429,14 @@ export default function PipBoyInterface() {
         }
       } catch (error) {
         console.error("💥 Transcription error:", error)
-        
+
         // Show user-friendly error message
         const errorMessage = error instanceof Error ? error.message : "Unknown transcription error"
-        
+
         // You can add a toast notification here or update UI state to show the error
         // For now, just clear the recording so user can try again
         clearRecording()
-        
+
         // Optionally, you could set an error state to show in the UI
         // setTranscriptionError(errorMessage)
       }
@@ -540,9 +551,9 @@ export default function PipBoyInterface() {
 
           {/* Avatar */}
           <div className="mb-10">
-            <AlfredAudioVisualizer 
-              isActive={isActive || isLoading || isProcessingUnsupported} 
-              isSpeaking={isSpeaking} 
+            <AlfredAudioVisualizer
+              isActive={isActive || isLoading || isProcessingUnsupported}
+              isSpeaking={isSpeaking}
             />
           </div>
 
@@ -1038,5 +1049,7 @@ export default function PipBoyInterface() {
         .pipboy-scrollbar:hover {
           box-shadow: inset 2px 0 4px rgba(74, 222, 128, 0.2);
         }
-      `}</style>\
+      `}</style>
     </div>
+  )
+}
