@@ -162,7 +162,7 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
     baseHeight: 15 + Math.random() * 25, // Altura base entre 15-40 (antes 20-60)
     maxHeight: 40 + Math.random() * 50, // Altura máxima entre 40-90 (antes 60-140)
     delay: Math.random() * 0.5, // Delay aleatorio hasta 0.5s
-    speed: 0.6 + Math.random() * 0.8, // Velocidad entre 0.6-1.4s (antes 0.3-0.7s)
+    speed: 0.5 + Math.random() * 0.3, // Velocidad entre 0.5-0.8s
   }))
 
   return (
