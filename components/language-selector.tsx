@@ -69,11 +69,11 @@ export function LanguageSelector() {
         variant="outline"
         size="sm"
         className={`
-          bg-black/80 backdrop-blur-sm border-2 border-cyan-400/50 
-          text-cyan-300 hover:bg-pink-400/10 hover:border-pink-400 hover:text-pink-300
-          transition-all duration-300 shadow-lg shadow-cyan-400/25 hover:shadow-pink-400/25
+          bg-black/80 backdrop-blur-sm border-2 border-green-400/50 
+          text-green-300 hover:bg-yellow-400/10 hover:border-yellow-400 hover:text-yellow-300
+          transition-all duration-300
           flex items-center space-x-2 px-3 py-2
-          ${isOpen ? "border-pink-400 bg-pink-400/10 text-pink-300 shadow-pink-400/25" : ""}
+          ${isOpen ? "border-yellow-400 bg-yellow-400/10 text-yellow-300" : ""}
         `}
       >
         <Globe className="w-4 h-4" />
@@ -84,7 +84,7 @@ export function LanguageSelector() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 min-w-[180px] bg-black/90 backdrop-blur-sm border-2 border-cyan-400/50 rounded-lg shadow-xl shadow-cyan-400/25 overflow-hidden">
+        <div className="absolute top-full right-0 mt-2 min-w-[180px] bg-black/90 backdrop-blur-sm border-2 border-green-400/50 rounded-lg overflow-hidden">
           <div className="py-1">
             {availableLanguages.map((lang) => (
               <button
@@ -95,21 +95,21 @@ export function LanguageSelector() {
                   transition-all duration-200 text-sm font-medium
                   ${
                     currentLanguage === lang
-                      ? "bg-purple-500/20 text-purple-300 border-l-4 border-purple-400"
-                      : "text-cyan-300 hover:bg-pink-500/10 hover:text-pink-300 hover:border-l-4 hover:border-pink-400"
+                      ? "bg-yellow-500/20 text-yellow-300 border-l-4 border-yellow-400"
+                      : "text-green-300 hover:bg-yellow-500/10 hover:text-yellow-300 hover:border-l-4 hover:border-yellow-400"
                   }
                 `}
               >
                 <span className="text-lg">{languageFlags[lang]}</span>
                 <span className="font-medium">{languageNames[lang]}</span>
-                {currentLanguage === lang && <span className="ml-auto text-purple-400 text-xs">✓</span>}
+                {currentLanguage === lang && <span className="ml-auto text-yellow-400 text-xs">✓</span>}
               </button>
             ))}
           </div>
 
           {/* Footer con info */}
-          <div className="border-t border-cyan-400/30 px-4 py-2 bg-black/50">
-            <div className="text-xs text-cyan-400 text-center font-mono">🌐 Multilingual AI Interface</div>
+          <div className="border-t border-green-400/30 px-4 py-2 bg-black/50">
+            <div className="text-xs text-green-400 text-center font-mono">🌐 Multilingual AI Interface</div>
           </div>
         </div>
       )}

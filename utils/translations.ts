@@ -78,6 +78,19 @@ export interface Translations {
 
   // NEW: Unsupported language indicator
   unsupported: string
+
+  // NEW: Main interface container translations
+  mainInterface: string
+  alfredTerminalInterface: string
+  retrofuturisticDesign: string
+  realtimeVoiceComm: string
+  advancedNeuralTranscription: string
+  animatedAvatarSystem: string
+  multilingualSupport5Lang: string
+  pipboyAesthetics: string
+  advancedAiInterface: string
+  voiceTextCommEnabled: string
+  initializeAlfredInterface: string
 }
 
 export const translations: Record<Language, Translations> = {
@@ -158,6 +171,19 @@ export const translations: Record<Language, Translations> = {
     canCancel: "💡 Puedes cancelar en el paso 3 para volver a grabar",
 
     unsupported: "no soportado",
+
+    // Main interface container
+    mainInterface: "INTERFAZ PRINCIPAL",
+    alfredTerminalInterface: "INTERFAZ TERMINAL A.L.F.R.E.D",
+    retrofuturisticDesign: "Diseño Terminal Retrofuturista",
+    realtimeVoiceComm: "Comunicación de Voz en Tiempo Real",
+    advancedNeuralTranscription: "Transcripción Neural Avanzada",
+    animatedAvatarSystem: "Sistema de Avatar Animado",
+    multilingualSupport5Lang: "Soporte Multiidioma (5 Idiomas)",
+    pipboyAesthetics: "Estética Inspirada en Pip-Boy",
+    advancedAiInterface: "INTERFAZ IA AVANZADA",
+    voiceTextCommEnabled: "COMUNICACIÓN VOZ Y TEXTO HABILITADA",
+    initializeAlfredInterface: "[INICIALIZAR INTERFAZ A.L.F.R.E.D]",
   },
 
   en: {
@@ -237,6 +263,19 @@ export const translations: Record<Language, Translations> = {
     canCancel: "💡 You can cancel in step 3 to record again",
 
     unsupported: "not supported",
+
+    // Main interface container
+    mainInterface: "MAIN INTERFACE",
+    alfredTerminalInterface: "A.L.F.R.E.D TERMINAL INTERFACE",
+    retrofuturisticDesign: "Retrofuturistic Terminal Design",
+    realtimeVoiceComm: "Real-time Voice Communication",
+    advancedNeuralTranscription: "Advanced Neural Transcription",
+    animatedAvatarSystem: "Animated Avatar System",
+    multilingualSupport5Lang: "Multilingual Support (5 Languages)",
+    pipboyAesthetics: "Pip-Boy Inspired Aesthetics",
+    advancedAiInterface: "ADVANCED AI INTERFACE",
+    voiceTextCommEnabled: "VOICE & TEXT COMMUNICATION ENABLED",
+    initializeAlfredInterface: "[INITIALIZE A.L.F.R.E.D INTERFACE]",
   },
 
   fr: {
@@ -316,6 +355,19 @@ export const translations: Record<Language, Translations> = {
     canCancel: "💡 Vous pouvez annuler à l'étape 3 pour réenregistrer",
 
     unsupported: "non supporté",
+
+    // Main interface container
+    mainInterface: "INTERFACE PRINCIPALE",
+    alfredTerminalInterface: "INTERFACE TERMINAL A.L.F.R.E.D",
+    retrofuturisticDesign: "Design Terminal Rétrofuturiste",
+    realtimeVoiceComm: "Communication Vocale en Temps Réel",
+    advancedNeuralTranscription: "Transcription Neurale Avancée",
+    animatedAvatarSystem: "Système d'Avatar Animé",
+    multilingualSupport5Lang: "Support Multilingue (5 Langues)",
+    pipboyAesthetics: "Esthétique Inspirée de Pip-Boy",
+    advancedAiInterface: "INTERFACE IA AVANCÉE",
+    voiceTextCommEnabled: "COMMUNICATION VOIX ET TEXTE ACTIVÉE",
+    initializeAlfredInterface: "[INITIALISER INTERFACE A.L.F.R.E.D]",
   },
 
   it: {
@@ -395,6 +447,19 @@ export const translations: Record<Language, Translations> = {
     canCancel: "💡 Puoi annullare al passo 3 per registrare di nuovo",
 
     unsupported: "non supportato",
+
+    // Main interface container
+    mainInterface: "INTERFACCIA PRINCIPALE",
+    alfredTerminalInterface: "INTERFACCIA TERMINAL A.L.F.R.E.D",
+    retrofuturisticDesign: "Design Terminal Retrofuturistico",
+    realtimeVoiceComm: "Comunicazione Vocale in Tempo Reale",
+    advancedNeuralTranscription: "Trascrizione Neurale Avanzata",
+    animatedAvatarSystem: "Sistema Avatar Animato",
+    multilingualSupport5Lang: "Supporto Multilingue (5 Lingue)",
+    pipboyAesthetics: "Estetica Ispirata a Pip-Boy",
+    advancedAiInterface: "INTERFACCIA IA AVANZATA",
+    voiceTextCommEnabled: "COMUNICAZIONE VOCE E TESTO ABILITATA",
+    initializeAlfredInterface: "[INIZIALIZZA INTERFACCIA A.L.F.R.E.D]",
   },
 
   pt: {
@@ -474,6 +539,19 @@ export const translations: Record<Language, Translations> = {
     canCancel: "💡 Você pode cancelar no passo 3 para gravar novamente",
 
     unsupported: "não suportado",
+
+    // Main interface container
+    mainInterface: "INTERFACE PRINCIPAL",
+    alfredTerminalInterface: "INTERFACE TERMINAL A.L.F.R.E.D",
+    retrofuturisticDesign: "Design Terminal Retrofuturista",
+    realtimeVoiceComm: "Comunicação de Voz em Tempo Real",
+    advancedNeuralTranscription: "Transcrição Neural Avançada",
+    animatedAvatarSystem: "Sistema de Avatar Animado",
+    multilingualSupport5Lang: "Suporte Multilíngue (5 Idiomas)",
+    pipboyAesthetics: "Estética Inspirada em Pip-Boy",
+    advancedAiInterface: "INTERFACE IA AVANÇADA",
+    voiceTextCommEnabled: "COMUNICAÇÃO VOZ E TEXTO HABILITADA",
+    initializeAlfredInterface: "[INICIALIZAR INTERFACE A.L.F.R.E.D]",
   },
 }
 
