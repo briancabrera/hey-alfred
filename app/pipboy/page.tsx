@@ -159,10 +159,10 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
   // Generar 12 barras con diferentes alturas y delays
   const bars = Array.from({ length: 12 }, (_, i) => ({
     id: i,
-    baseHeight: 20 + Math.random() * 40, // Altura base entre 20-60
-    maxHeight: 60 + Math.random() * 80, // Altura máxima entre 60-140
+    baseHeight: 15 + Math.random() * 25, // Altura base entre 15-40 (antes 20-60)
+    maxHeight: 40 + Math.random() * 50, // Altura máxima entre 40-90 (antes 60-140)
     delay: Math.random() * 0.5, // Delay aleatorio hasta 0.5s
-    speed: 0.3 + Math.random() * 0.4, // Velocidad entre 0.3-0.7s
+    speed: 0.6 + Math.random() * 0.8, // Velocidad entre 0.6-1.4s (antes 0.3-0.7s)
   }))
 
   return (
