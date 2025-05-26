@@ -16,7 +16,6 @@ import type { Language } from "@/utils/translations"
 import {
   detectLanguage,
   detectUnsupportedLanguage,
-  getLanguageDisplayName,
   getLanguageName,
   isLanguageSupported,
 } from "@/utils/language-detector"
@@ -236,18 +235,22 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
 
 // Actualizar el componente TerminalMessage para mostrar el tag correcto:
 
-const TerminalMessage = ({ message, isUser }: { message: any; isUser: boolean }) => {
-  const { t, currentLanguage } = useLanguage()
+const TerminalMessage = ({
+  message,
+  isUser,
+  userLang,
+  alfredLang,
+}: {
+  message: any
+  isUser: boolean
+  userLang: string
+  alfredLang: string
+}) => {
+  const { t } = useLanguage()
 
-  // Detectar idioma y si es no soportado
-  const detectedLang = detectLanguage(message.content)
-  const unsupportedLang = detectUnsupportedLanguage(message.content)
-  const displayName = getLanguageDisplayName(
-    detectedLang,
-    unsupportedLang,
-    currentLanguage.split("-")[0],
-    t.unsupported,
-  )
+  // Use the passed language states instead of detecting
+  const displayLang = isUser ? userLang : alfredLang
+  const displayName = getLanguageName(displayLang)
 
   return (
     <motion.div
@@ -258,7 +261,7 @@ const TerminalMessage = ({ message, isUser }: { message: any; isUser: boolean })
       <div className={`inline-block max-w-[80%] ${isUser ? "text-green-300" : "text-green-400"}`}>
         <div className="text-xs opacity-70 mb-1">
           {isUser ? "{'>'} USER_INPUT" : "{'>'} ALFRED_RESPONSE"}
-          <span className={`ml-2 ${unsupportedLang ? "text-red-400" : "text-yellow-400"}`}>[{displayName}]</span>
+          <span className="ml-2 text-yellow-400">[{displayName}]</span>
         </div>
         <div className={`p-3 border ${isUser ? "border-green-300/30" : "border-green-400/50"} bg-black/50`}>
           {message.content}
@@ -319,6 +322,16 @@ export default function PipBoyInterface() {
   const { speak, stop, isSpeaking } = useTextToSpeech()
   const { t, updateLanguageFromDetection } = useLanguage()
 
+  // 🚀 NUEVO: Cleanup adicional al desmontar el componente principal
+  useEffect(() => {
+    return () => {
+      console.log("🔇 Componente principal desmontándose - limpieza final")
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel()
+      }
+    }
+  }, [])
+
   // Función para crear mensaje de idioma no soportado
   const createUnsupportedLanguageMessage = (detectedLang: string) => {
     const unsupportedMessage = `Lo siento, pero no estoy configurado para comunicarme en ese idioma. Actualmente solo puedo conversar en estos 5 idiomas: español, english, português, français, italiano.`
@@ -334,6 +347,8 @@ export default function PipBoyInterface() {
   // Función personalizada para manejar append con detección de idioma
   const handleAppendWithLanguageCheck = async (message: { role: "user" | "assistant"; content: string }) => {
     if (message.role === "user") {
+      console.log("🎯 Detectando idioma para mensaje del usuario:", message.content.substring(0, 50) + "...")
+
       // Detectar idioma antes de enviar
       const detectedLang = detectLanguage(message.content)
       const unsupportedLang = detectUnsupportedLanguage(message.content)
@@ -369,8 +384,8 @@ export default function PipBoyInterface() {
         return
       }
 
+      console.log("✅ Idioma soportado detectado:", detectedLang)
       setUserLanguage(detectedLang)
-      // ELIMINAR: updateLanguageFromDetection(detectedLang)
     }
 
     // Si el idioma es soportado, usar el append normal
@@ -473,7 +488,9 @@ export default function PipBoyInterface() {
       )
 
       if (!isUnsupportedLanguageMessage) {
+        console.log("🎯 Detectando idioma para respuesta de Alfred:", lastMessage.content.substring(0, 50) + "...")
         const detectedLang = detectLanguage(lastMessage.content)
+        console.log("✅ Idioma detectado para Alfred:", detectedLang)
         setCurrentLanguage(detectedLang)
         speak(lastMessage.content)
       } else {
@@ -653,7 +670,13 @@ export default function PipBoyInterface() {
                 </motion.div>
               ) : (
                 messages.map((message) => (
-                  <TerminalMessage key={message.id} message={message} isUser={message.role === "user"} />
+                  <TerminalMessage
+                    key={message.id}
+                    message={message}
+                    isUser={message.role === "user"}
+                    userLang={userLanguage}
+                    alfredLang={currentLanguage}
+                  />
                 ))
               )}
             </AnimatePresence>
@@ -690,7 +713,7 @@ export default function PipBoyInterface() {
           {/* Controles de interacción - Nueva ubicación */}
           <motion.div initial={{ y: 50 }} animate={{ y: 0 }} className="bg-black/80 border-t-2 border-green-400/50 p-4">
             {/* Área de botones principales - Layout adaptativo pero consistente */}
-            <div className="flex justify-center items-center space-x-3 mb-4">
+            <div className="flex justify-center items-center space-x-3 mb-4 flex-wrap gap-3">
               {/* Botón principal de micrófono - Ancho fijo */}
               <div className="w-36">
                 <PipBoyButton onClick={handleMicClick} active={isRecording || !!audioBlob} variant={micState.variant}>
@@ -710,6 +733,41 @@ export default function PipBoyInterface() {
                   </div>
                 </PipBoyButton>
               </div>
+
+              {/* Botón PREVIEW - Solo visible en paso 3 */}
+              <AnimatePresence>
+                {audioBlob && !isRecording && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-36"
+                  >
+                    <PipBoyButton
+                      onClick={() => {
+                        if (audioBlob) {
+                          // Crear URL del blob y reproducir
+                          const audioUrl = URL.createObjectURL(audioBlob)
+                          const audio = new Audio(audioUrl)
+                          audio.play().catch(console.error)
+
+                          // Limpiar URL después de la reproducción
+                          audio.onended = () => {
+                            URL.revokeObjectURL(audioUrl)
+                          }
+                        }
+                      }}
+                      variant="warning"
+                    >
+                      <div className="flex items-center justify-center space-x-2">
+                        <Volume2 className="w-4 h-4" />
+                        <span className="text-sm">PREVIEW</span>
+                      </div>
+                    </PipBoyButton>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Botón REPETIR - Visible en estado inicial cuando hay respuestas de Alfred */}
               {!isRecording && !audioBlob && (
