@@ -46,9 +46,9 @@ export default function HomePage() {
             <h1 className="text-4xl md:text-6xl font-bold text-green-400 mb-4 tracking-wider">A.L.F.R.E.D</h1>
 
             <div className="text-cyan-400 text-sm tracking-widest mb-2">{t.alfredSubtitle1}</div>
-            <div className="text-cyan-400 text-sm tracking-widest mb-4">{t.alfredSubtitle2}</div>
+            <div className="text-cyan-400  text-sm tracking-widest mb-4">{t.alfredSubtitle2}</div>
 
-            <div className="text-green-400 text-xs">
+            <div className="text-green-300 text-xs">
               {">"} {t.conversationalAI} {"<"}
             </div>
             <div className="text-amber-300 text-xs mt-1">
@@ -63,7 +63,7 @@ export default function HomePage() {
             <div className="text-amber-300 text-xs mb-2">SYSTEM STATUS</div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-cyan-400 text-xs">{t.systemOperational}</span>
+              <span className="text-cyan-400  text-xs">{t.systemOperational}</span>
             </div>
           </div>
 
@@ -71,7 +71,7 @@ export default function HomePage() {
             <div className="text-amber-300 text-xs mb-2">AI CORE</div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
-              <span className="text-cyan-400 text-xs">{t.aiActive}</span>
+              <span className="text-cyan-400  text-xs">{t.aiActive}</span>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ export default function HomePage() {
             <div className="text-amber-300 text-xs mb-2">INTERFACE</div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
-              <span className="text-cyan-400 text-xs">{t.interfaceReady}</span>
+              <span className="text-cyan-400  text-xs">{t.interfaceReady}</span>
             </div>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function HomePage() {
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="border border-green-400 p-4 bg-black/40">
-                <div className="text-amber-300 text-sm font-bold mb-3 tracking-wider">{t.neuralEngine}</div>
+                <div className="text-amber-300 ext-sm font-bold mb-3 tracking-wider">{t.neuralEngine}</div>
                 <div className="text-cyan-400 text-xs mb-1">{">"} Groq LPU Architecture</div>
                 <div className="text-cyan-400 text-xs opacity-70">
                   {">"} {t.ultraFastInference}
