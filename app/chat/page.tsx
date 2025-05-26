@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mic, MicOff, Zap, VolumeX, Globe, ChevronDown, Volume2 } from "lucide-react"
+import { Mic, MicOff, Zap, VolumeX, Globe, ChevronDown, Volume2, RotateCcw, Trash2 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { useChat } from "ai/react"
 import { useAudioRecorder } from "@/hooks/use-audio-recorder"
@@ -19,6 +19,14 @@ import {
   getLanguageName,
   isLanguageSupported,
 } from "@/utils/language-detector"
+
+// 🚀 NUEVO: Constantes para localStorage
+const STORAGE_KEYS = {
+  MESSAGES: "alfred-conversation-messages",
+  USER_LANGUAGE: "alfred-user-language",
+  ALFRED_LANGUAGE: "alfred-alfred-language",
+  LAST_PROCESSED_ID: "alfred-last-processed-id",
+}
 
 // Selector de idioma estilo Pip-Boy
 const PipBoyLanguageSelector = () => {
@@ -309,6 +317,34 @@ const PipBoyButton = ({
   )
 }
 
+// 🚀 NUEVO: Componente para el botón de reset con confirmación
+const ResetConversationButton = ({ onReset }: { onReset: () => void }) => {
+  const [showConfirm, setShowConfirm] = useState(false)
+  const { t } = useLanguage()
+
+  const handleReset = () => {
+    if (!showConfirm) {
+      setShowConfirm(true)
+      // Auto-cancelar después de 3 segundos
+      setTimeout(() => setShowConfirm(false), 3000)
+    } else {
+      onReset()
+      setShowConfirm(false)
+    }
+  }
+
+  return (
+    <div className="w-36">
+      <PipBoyButton onClick={handleReset} variant={showConfirm ? "danger" : "warning"}>
+        <div className="flex items-center justify-center space-x-2">
+          {showConfirm ? <Trash2 className="w-4 h-4" /> : <RotateCcw className="w-4 h-4" />}
+          <span className="text-sm">{showConfirm ? "CONFIRM?" : "RESET"}</span>
+        </div>
+      </PipBoyButton>
+    </div>
+  )
+}
+
 export default function PipBoyInterface() {
   const [isActive, setIsActive] = useState(true)
   const [currentLanguage, setCurrentLanguage] = useState("es-ES")
@@ -316,13 +352,114 @@ export default function PipBoyInterface() {
   const lastProcessedMessageId = useRef<string>("")
   const [isProcessingUnsupported, setIsProcessingUnsupported] = useState(false)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
+  const [isLoaded, setIsLoaded] = useState(false) // 🚀 NUEVO: Estado para controlar carga inicial
 
   const { messages, append, isLoading, setMessages } = useChat()
   const { isRecording, audioBlob, error, startRecording, forceStop, clearRecording } = useAudioRecorder()
   const { speak, stop, isSpeaking } = useTextToSpeech()
   const { t, updateLanguageFromDetection } = useLanguage()
 
-  // 🚀 NUEVO: Cleanup adicional al desmontar el componente principal
+  // 🚀 NUEVO: Funciones para persistencia
+  const saveToLocalStorage = (messages: any[], userLang: string, alfredLang: string, lastProcessedId: string) => {
+    try {
+      localStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(messages))
+      localStorage.setItem(STORAGE_KEYS.USER_LANGUAGE, userLang)
+      localStorage.setItem(STORAGE_KEYS.ALFRED_LANGUAGE, alfredLang)
+      localStorage.setItem(STORAGE_KEYS.LAST_PROCESSED_ID, lastProcessedId)
+      console.log("💾 Conversación guardada en localStorage:", {
+        messages: messages.length,
+        userLang,
+        alfredLang,
+        lastProcessedId,
+      })
+    } catch (error) {
+      console.error("❌ Error guardando en localStorage:", error)
+    }
+  }
+
+  const loadFromLocalStorage = () => {
+    try {
+      const savedMessages = localStorage.getItem(STORAGE_KEYS.MESSAGES)
+      const savedUserLang = localStorage.getItem(STORAGE_KEYS.USER_LANGUAGE)
+      const savedAlfredLang = localStorage.getItem(STORAGE_KEYS.ALFRED_LANGUAGE)
+      const savedLastProcessedId = localStorage.getItem(STORAGE_KEYS.LAST_PROCESSED_ID)
+
+      if (savedMessages) {
+        const parsedMessages = JSON.parse(savedMessages)
+        console.log("📂 Cargando conversación desde localStorage:", {
+          messages: parsedMessages.length,
+          userLang: savedUserLang,
+          alfredLang: savedAlfredLang,
+          lastProcessedId: savedLastProcessedId,
+        })
+
+        setMessages(parsedMessages)
+        if (savedUserLang) setUserLanguage(savedUserLang)
+        if (savedAlfredLang) setCurrentLanguage(savedAlfredLang)
+        if (savedLastProcessedId) lastProcessedMessageId.current = savedLastProcessedId
+
+        return true // Indica que se cargaron datos
+      }
+    } catch (error) {
+      console.error("❌ Error cargando desde localStorage:", error)
+    }
+    return false // No se cargaron datos
+  }
+
+  const clearLocalStorage = () => {
+    try {
+      Object.values(STORAGE_KEYS).forEach((key) => {
+        localStorage.removeItem(key)
+      })
+      console.log("🗑️ localStorage limpiado completamente")
+    } catch (error) {
+      console.error("❌ Error limpiando localStorage:", error)
+    }
+  }
+
+  // 🚀 NUEVO: Cargar conversación al inicializar
+  useEffect(() => {
+    console.log("🚀 Inicializando interfaz de Alfred...")
+    const hasData = loadFromLocalStorage()
+    setIsLoaded(true)
+
+    if (hasData) {
+      console.log("✅ Conversación anterior restaurada")
+    } else {
+      console.log("🆕 Nueva sesión iniciada")
+    }
+  }, [setMessages])
+
+  // 🚀 NUEVO: Guardar conversación cada vez que cambian los mensajes
+  useEffect(() => {
+    if (isLoaded && messages.length > 0) {
+      saveToLocalStorage(messages, userLanguage, currentLanguage, lastProcessedMessageId.current)
+    }
+  }, [messages, userLanguage, currentLanguage, isLoaded])
+
+  // 🚀 NUEVO: Función para resetear conversación
+  const resetConversation = () => {
+    console.log("🔄 Reseteando conversación completa...")
+
+    // Detener cualquier síntesis de voz
+    if (isSpeaking) {
+      stop()
+    }
+
+    // Limpiar estados
+    setMessages([])
+    setCurrentLanguage("es-ES")
+    setUserLanguage("es-ES")
+    setIsProcessingUnsupported(false)
+    lastProcessedMessageId.current = ""
+
+    // Limpiar localStorage
+    clearLocalStorage()
+
+    console.log("✅ Conversación reseteada completamente")
+  }
+
+  // Cleanup adicional al desmontar el componente principal
   useEffect(() => {
     return () => {
       console.log("🔇 Componente principal desmontándose - limpieza final")
@@ -478,7 +615,8 @@ export default function PipBoyInterface() {
       lastMessage.role === "assistant" &&
       lastMessage.id !== lastProcessedMessageId.current &&
       !isSpeaking &&
-      !isLoading
+      !isLoading &&
+      isLoaded // 🚀 NUEVO: Solo hablar si ya se cargó la conversación
     ) {
       lastProcessedMessageId.current = lastMessage.id
 
@@ -498,17 +636,17 @@ export default function PipBoyInterface() {
         setCurrentLanguage("es-ES")
       }
     }
-  }, [messages, isSpeaking, isLoading, speak])
+  }, [messages, isSpeaking, isLoading, speak, isLoaded])
 
   // Limpiar referencia cuando se inicia nueva conversación
   useEffect(() => {
-    if (messages.length === 0) {
+    if (messages.length === 0 && isLoaded) {
       lastProcessedMessageId.current = ""
       setCurrentLanguage("es-ES")
       setUserLanguage("es-ES")
       setIsProcessingUnsupported(false) // Limpiar estado de procesamiento
     }
-  }, [messages.length])
+  }, [messages.length, isLoaded])
 
   // Función para hacer scroll al final del contenedor de mensajes
   const scrollToBottom = () => {
@@ -523,6 +661,28 @@ export default function PipBoyInterface() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // 🚀 NUEVO: Mostrar loading mientras se carga la conversación
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-black text-green-400 font-mono flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">🤖</div>
+          <div className="text-xl mb-4">LOADING A.L.F.R.E.D...</div>
+          <div className="flex space-x-1 justify-center">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-2 h-2 bg-green-400 rounded-full"
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: i * 0.2 }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono overflow-hidden">
@@ -608,6 +768,14 @@ export default function PipBoyInterface() {
                 <span className="text-xs text-green-400 font-bold">{isSpeaking ? "SPEAKING" : "READY"}</span>
               </div>
 
+              {/* 🚀 NUEVO: Indicador de persistencia */}
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-green-300 font-medium">MEMORY:</span>
+                <span className="text-xs text-purple-400 font-bold">
+                  {messages.length > 0 ? `${messages.length} MSGS` : "EMPTY"}
+                </span>
+              </div>
+
               <div className="flex justify-between items-center">
                 <span className="text-xs text-green-300 font-medium">INTERFACE:</span>
                 <span className="text-xs text-purple-400 font-bold">PIP-BOY_V3.0</span>
@@ -645,6 +813,8 @@ export default function PipBoyInterface() {
               <div className="flex items-center space-x-4">
                 <div className="text-xs">MSGS: {messages.length}</div>
                 <div className="text-xs">STATUS: {isLoading || isProcessingUnsupported ? "PROCESSING" : "READY"}</div>
+                {/* 🚀 NUEVO: Indicador de persistencia */}
+                <div className="text-xs text-purple-400">💾 PERSISTENT</div>
               </div>
             </div>
           </motion.div>
@@ -663,6 +833,7 @@ export default function PipBoyInterface() {
                     <div>{">"} SUPPORTED_LANGUAGES: ES | EN | FR | IT | PT</div>
                     <div>{">"} VOICE_MODE: RECORD → STOP → TRANSMIT</div>
                     <div>{">"} REAL_TIME_TRANSLATION: ENABLED</div>
+                    <div className="text-purple-400">{">"} CONVERSATION_PERSISTENCE: ACTIVE</div>
                     <div className="text-yellow-400">
                       {">"} {t.tryExample || 'TRY: "Hello Alfred, how are you?"'}
                     </div>
@@ -814,6 +985,9 @@ export default function PipBoyInterface() {
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              {/* 🚀 NUEVO: Botón RESET - Solo visible cuando no hay grabación activa */}
+              {!isRecording && !audioBlob && <ResetConversationButton onReset={resetConversation} />}
             </div>
 
             {/* Área de indicadores de estado - Altura fija */}
@@ -869,7 +1043,7 @@ export default function PipBoyInterface() {
                   >
                     <div className="text-center">
                       <div className="text-xs text-green-400 font-mono opacity-70">🎤 VOICE_INTERFACE_READY</div>
-                      <div className="text-xs text-green-400 mt-1 font-mono opacity-50">PRESS_RECORD_TO_START</div>
+                      <div className="text-xs text-green-400 mt-1 font-mono opacity-50">💾 CONVERSATION_PERSISTENT</div>
                     </div>
                   </motion.div>
                 )}
@@ -884,6 +1058,8 @@ export default function PipBoyInterface() {
                 <div>{t.neuralEngine || "NEURAL_ENGINE"}: GROQ_LPU</div>
                 <div>{t.linguisticModel || "MODEL"}: LLAMA_3.1_8B</div>
                 <div>{t.audioProcessor || "AUDIO"}: WHISPER_V3</div>
+                {/* 🚀 NUEVO: Indicador de persistencia */}
+                <div className="text-purple-400">STORAGE: LOCAL_PERSISTENT</div>
               </div>
               <div className="flex items-center space-x-2">
                 <motion.div
