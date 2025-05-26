@@ -88,12 +88,12 @@ const PipBoyLanguageSelector = () => {
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          flex items-center space-x-1 px-2 py-1 border border-green-400/50 bg-black/70 font-mono text-xs
+          flex items-center space-x-1 px-2 py-1 border border-slate-500/50 bg-slate-900/70 font-mono text-xs
           transition-all duration-300 hover:shadow-md
           ${
             isOpen
-              ? "border-yellow-400 text-yellow-400 bg-yellow-400/10 shadow-yellow-400/50"
-              : "text-green-400 hover:border-green-400 hover:bg-green-400/10 hover:shadow-green-400/50"
+              ? "border-amber-300 text-amber-300 bg-amber-300/10 shadow-amber-300/50"
+              : "text-white hover:border-white hover:bg-white/10 hover:shadow-white/50"
           }
         `}
         whileHover={{ scale: 1.02 }}
@@ -112,7 +112,7 @@ const PipBoyLanguageSelector = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 min-w-[180px] bg-black/95 border border-green-400/50 shadow-xl shadow-green-400/25 overflow-hidden z-50"
+            className="absolute top-full right-0 mt-2 min-w-[180px] bg-slate-900/95 border border-slate-500/50 shadow-xl shadow-white/25 overflow-hidden z-50"
           >
             <div className="py-1">
               {availableLanguages.map((lang) => (
@@ -124,8 +124,8 @@ const PipBoyLanguageSelector = () => {
                     transition-all duration-200 text-xs font-mono font-medium
                     ${
                       currentLanguage === lang
-                        ? "bg-green-400/20 text-green-300 border-l-2 border-green-400"
-                        : "text-green-400 hover:bg-yellow-400/10 hover:text-yellow-300 hover:border-l-2 hover:border-yellow-400"
+                        ? "bg-white/20 text-white border-l-2 border-white"
+                        : "text-white hover:bg-amber-300/10 hover:text-amber-300 hover:border-l-2 hover:border-amber-300"
                     }
                   `}
                   whileHover={{ x: 2 }}
@@ -136,7 +136,7 @@ const PipBoyLanguageSelector = () => {
                     <motion.span
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="ml-auto text-green-400 text-xs"
+                      className="ml-auto text-white text-xs"
                     >
                       ✓
                     </motion.span>
@@ -147,12 +147,12 @@ const PipBoyLanguageSelector = () => {
 
             {/* Footer compacto */}
             <motion.div
-              className="border-t border-green-400/30 px-3 py-1 bg-black/50"
+              className="border-t border-slate-500/30 px-3 py-1 bg-slate-900/50"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
             >
-              <div className="text-xs text-green-400 text-center font-mono tracking-wider">🌐 LANG_SELECT</div>
+              <div className="text-xs text-white text-center font-mono tracking-wider">🌐 LANG_SELECT</div>
             </motion.div>
           </motion.div>
         )}
@@ -179,7 +179,7 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
         {bars.map((bar) => (
           <motion.div
             key={bar.id}
-            className="bg-green-400 rounded-t-sm"
+            className="bg-white rounded-t-sm"
             style={{
               width: "8px",
               minHeight: "8px",
@@ -198,11 +198,11 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
                 : isActive
                   ? {
                       height: [`${bar.baseHeight * 0.3}px`, `${bar.baseHeight * 0.6}px`, `${bar.baseHeight * 0.3}px`],
-                      boxShadow: ["0 0 3px #00ff00", "0 0 8px #00ff00", "0 0 3px #00ff00"],
+                      boxShadow: ["0 0 3px #ffffff", "0 0 8px #ffffff", "0 0 3px #ffffff"],
                     }
                   : {
                       height: `${bar.baseHeight * 0.2}px`,
-                      boxShadow: "0 0 2px #00ff00",
+                      boxShadow: "0 0 2px #ffffff",
                     }
             }
             transition={{
@@ -228,14 +228,14 @@ const AlfredAudioVisualizer = ({ isActive, isSpeaking }: { isActive: boolean; is
       <motion.div
         className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-center"
         animate={{
-          textShadow: ["0 0 5px #00ff00", "0 0 10px #00ff00", "0 0 5px #00ff00"],
+          textShadow: ["0 0 5px #ffffff", "0 0 10px #ffffff", "0 0 5px #ffffff"],
         }}
         transition={{
           duration: 3,
           repeat: Number.POSITIVE_INFINITY,
         }}
       >
-        <div className="text-green-400 font-mono text-sm tracking-wider font-bold">A.L.F.R.E.D</div>
+        <div className="text-white font-mono text-sm tracking-wider font-bold">A.L.F.R.E.D</div>
       </motion.div>
     </div>
   )
@@ -266,12 +266,12 @@ const TerminalMessage = ({
       animate={{ opacity: 1, x: 0 }}
       className={`mb-4 font-mono text-sm ${isUser ? "text-right" : "text-left"}`}
     >
-      <div className={`inline-block max-w-[80%] ${isUser ? "text-green-300" : "text-green-400"}`}>
+      <div className={`inline-block max-w-[80%] ${isUser ? "text-white" : "text-white"}`}>
         <div className="text-xs opacity-70 mb-1">
           {isUser ? "{'>'} USER_INPUT" : "{'>'} ALFRED_RESPONSE"}
-          <span className="ml-2 text-yellow-400">[{displayName}]</span>
+          <span className="ml-2 text-amber-300">[{displayName}]</span>
         </div>
-        <div className={`p-3 border ${isUser ? "border-green-300/30" : "border-green-400/50"} bg-black/50`}>
+        <div className={`p-3 border ${isUser ? "border-white/30" : "border-slate-500/50"} bg-slate-900/50`}>
           {message.content}
         </div>
       </div>
@@ -294,9 +294,9 @@ const PipBoyButton = ({
   variant?: "default" | "danger" | "warning"
 }) => {
   const colors = {
-    default: "border-green-400 text-green-400 hover:bg-green-400/10",
+    default: "border-emerald-500 text-emerald-400 hover:bg-emerald-400/10",
     danger: "border-red-400 text-red-400 hover:bg-red-400/10",
-    warning: "border-yellow-400 text-yellow-400 hover:bg-yellow-400/10",
+    warning: "border-amber-300 text-amber-300 hover:bg-amber-300/10",
   }
 
   return (
@@ -304,9 +304,9 @@ const PipBoyButton = ({
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full px-3 py-2 border-2 bg-black/50 font-mono text-sm transition-all duration-300
+        w-full px-3 py-2 border-2 bg-slate-900/50 font-mono text-sm transition-all duration-300
         ${colors[variant]}
-        ${active ? "bg-green-400/20" : ""}
+        ${active ? "bg-emerald-400/20" : ""}
         ${disabled ? "opacity-50 cursor-not-allowed" : ""}
       `}
       whileHover={!disabled ? { scale: 1.02 } : {}}
@@ -665,7 +665,7 @@ export default function PipBoyInterface() {
   // 🚀 NUEVO: Mostrar loading mientras se carga la conversación
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-black text-green-400 font-mono flex items-center justify-center">
+      <div className="min-h-screen bg-slate-900 text-white font-mono flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">🤖</div>
           <div className="text-xl mb-4">LOADING A.L.F.R.E.D...</div>
@@ -673,7 +673,7 @@ export default function PipBoyInterface() {
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
-                className="w-2 h-2 bg-green-400 rounded-full"
+                className="w-2 h-2 bg-white rounded-full"
                 animate={{ opacity: [0.3, 1, 0.3] }}
                 transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: i * 0.2 }}
               />
@@ -685,7 +685,7 @@ export default function PipBoyInterface() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-mono overflow-hidden">
+    <div className="min-h-screen bg-slate-900 text-slate-200 font-mono overflow-hidden">
       {/* Fondo con efecto de líneas de escaneo */}
       <div className="fixed inset-0 opacity-10">
         <div
@@ -695,8 +695,8 @@ export default function PipBoyInterface() {
             0deg,
             transparent,
             transparent 2px,
-            #00ff00 2px,
-            #00ff00 4px
+            rgba(148, 163, 184, 0.1) 2px,
+            rgba(148, 163, 184, 0.1) 4px
           )`,
           }}
         />
@@ -708,20 +708,20 @@ export default function PipBoyInterface() {
         <motion.div
           initial={{ x: -300 }}
           animate={{ x: 0 }}
-          className="w-80 bg-black/80 border-r-2 border-green-400/50 p-6"
+          className="w-80 bg-slate-900/80 border-r-2 border-slate-500/50 p-6"
         >
           {/* Header con selector de idioma */}
           <div className="text-center mb-8">
             {/* Header sin selector de idioma */}
             <motion.h1
-              className="text-2xl font-bold tracking-wider mb-2"
-              animate={{ textShadow: ["0 0 10px #00ff00", "0 0 20px #00ff00", "0 0 10px #00ff00"] }}
+              className="text-2xl font-bold tracking-wider mb-2 text-white"
+              animate={{ textShadow: ["0 0 5px #ffffff", "0 0 10px #ffffff", "0 0 5px #ffffff"] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
             >
               A.L.F.R.E.D
             </motion.h1>
-            <div className="text-xs opacity-70">{t.alfredSubtitle1}</div>
-            <div className="text-xs opacity-70">{t.alfredSubtitle2}</div>
+            <div className="text-xs opacity-70 text-white">{t.alfredSubtitle1}</div>
+            <div className="text-xs opacity-70 text-white">{t.alfredSubtitle2}</div>
           </div>
 
           {/* Avatar */}
@@ -733,52 +733,52 @@ export default function PipBoyInterface() {
           </div>
 
           {/* Status Panel */}
-          <Card className="bg-black/50 border-green-400/50 p-4 mb-6">
+          <Card className="bg-slate-900/50 border-slate-500/50 p-4 mb-6">
             <div className="space-y-3">
               {/* Header del Status Panel con selector de idioma */}
-              <div className="flex justify-between items-center mb-4 pb-2 border-b border-green-400/30">
-                <span className="text-sm font-bold text-green-400 tracking-wider">SYSTEM_STATUS</span>
+              <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-500/30">
+                <span className="text-sm font-bold text-white tracking-wider">SYSTEM_STATUS</span>
                 <PipBoyLanguageSelector />
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-xs text-green-300 font-medium">SYSTEM_STATUS:</span>
+                <span className="text-xs text-white font-medium">SYSTEM_STATUS:</span>
                 <motion.div
                   className="flex items-center space-x-2"
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                 >
-                  <div className="w-2 h-2 bg-green-400 rounded-full" />
-                  <span className="text-xs text-green-400 font-bold">{t.systemActive || "ONLINE"}</span>
+                  <div className="w-2 h-2 bg-white rounded-full" />
+                  <span className="text-xs text-white font-bold">{t.systemActive || "ONLINE"}</span>
                 </motion.div>
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-xs text-green-300 font-medium">USER_LANG:</span>
-                <span className="text-xs text-yellow-400 font-bold">{getLanguageName(userLanguage)}</span>
+                <span className="text-xs text-white font-medium">USER_LANG:</span>
+                <span className="text-xs text-amber-300 font-bold">{getLanguageName(userLanguage)}</span>
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-xs text-green-300 font-medium">AI_LANG:</span>
-                <span className="text-xs text-cyan-400 font-bold">{getLanguageName(currentLanguage)}</span>
+                <span className="text-xs text-white font-medium">AI_LANG:</span>
+                <span className="text-xs text-cyan-300 font-bold">{getLanguageName(currentLanguage)}</span>
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-xs text-green-300 font-medium">VOICE_MODE:</span>
-                <span className="text-xs text-green-400 font-bold">{isSpeaking ? "SPEAKING" : "READY"}</span>
+                <span className="text-xs text-white font-medium">VOICE_MODE:</span>
+                <span className="text-xs text-white font-bold">{isSpeaking ? "SPEAKING" : "READY"}</span>
               </div>
 
               {/* 🚀 NUEVO: Indicador de persistencia */}
               <div className="flex justify-between items-center">
-                <span className="text-xs text-green-300 font-medium">MEMORY:</span>
-                <span className="text-xs text-purple-400 font-bold">
+                <span className="text-xs text-white font-medium">MEMORY:</span>
+                <span className="text-xs text-cyan-300 font-bold">
                   {messages.length > 0 ? `${messages.length} MSGS` : "EMPTY"}
                 </span>
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-xs text-green-300 font-medium">INTERFACE:</span>
-                <span className="text-xs text-purple-400 font-bold">PIP-BOY_V3.0</span>
+                <span className="text-xs text-white font-medium">INTERFACE:</span>
+                <span className="text-xs text-cyan-300 font-bold">PIP-BOY_V3.0</span>
               </div>
             </div>
           </Card>
@@ -796,11 +796,11 @@ export default function PipBoyInterface() {
           <motion.div
             initial={{ y: -50 }}
             animate={{ y: 0 }}
-            className="bg-black/80 border-b-2 border-green-400/50 p-4"
+            className="bg-slate-900/80 border-b-2 border-slate-500/50 p-4"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="text-lg font-bold">DIALOGUE_TERMINAL</div>
+                <div className="text-lg font-bold text-white">DIALOGUE_TERMINAL</div>
                 <motion.div
                   className="text-amber-300 text-xs opacity-70"
                   animate={{ opacity: [0.5, 1, 0.5] }}
@@ -810,31 +810,31 @@ export default function PipBoyInterface() {
                 </motion.div>
               </div>
 
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 text-white">
                 <div className="text-xs">MSGS: {messages.length}</div>
                 <div className="text-xs">STATUS: {isLoading || isProcessingUnsupported ? "PROCESSING" : "READY"}</div>
                 {/* 🚀 NUEVO: Indicador de persistencia */}
-                <div className="text-xs text-purple-400">💾 PERSISTENT</div>
+                <div className="text-xs text-cyan-300">💾 PERSISTENT</div>
               </div>
             </div>
           </motion.div>
 
           {/* Área de mensajes */}
-          <div ref={messagesContainerRef} className="flex-1 p-6 overflow-y-auto bg-black/60 pipboy-scrollbar">
+          <div ref={messagesContainerRef} className="flex-1 p-6 overflow-y-auto bg-slate-900/60 pipboy-scrollbar">
             <AnimatePresence>
               {messages.length === 0 ? (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mt-20">
                   <div className="text-6xl mb-4">🤖</div>
-                  <div className="text-xl mb-4">{t.systemInitialized || "SYSTEM_INITIALIZED"}</div>
-                  <div className="text-sm opacity-70 mb-8">
+                  <div className="text-xl mb-4 text-white">{t.systemInitialized || "SYSTEM_INITIALIZED"}</div>
+                  <div className="text-sm opacity-70 mb-8 text-white">
                     {t.alsoKnownAs || "A.L.F.R.E.D READY FOR COMMUNICATION"}
                   </div>
-                  <div className="text-xs space-y-2 max-w-md mx-auto">
+                  <div className="text-xs space-y-2 max-w-md mx-auto text-white">
                     <div>{">"} SUPPORTED_LANGUAGES: ES | EN | FR | IT | PT</div>
                     <div>{">"} VOICE_MODE: RECORD → STOP → TRANSMIT</div>
                     <div>{">"} REAL_TIME_TRANSLATION: ENABLED</div>
-                    <div className="text-purple-400">{">"} CONVERSATION_PERSISTENCE: ACTIVE</div>
-                    <div className="text-yellow-400">
+                    <div className="text-cyan-300">{">"} CONVERSATION_PERSISTENCE: ACTIVE</div>
+                    <div className="text-amber-300">
                       {">"} {t.tryExample || 'TRY: "Hello Alfred, how are you?"'}
                     </div>
                   </div>
@@ -861,7 +861,7 @@ export default function PipBoyInterface() {
                   exit={{ opacity: 0, y: -20 }}
                   className="mb-4"
                 >
-                  <div className="text-sm text-yellow-400">
+                  <div className="text-sm text-amber-300">
                     <div className="mb-1">
                       {">"} {t.processing || "ALFRED_PROCESSING..."}
                     </div>
@@ -869,7 +869,7 @@ export default function PipBoyInterface() {
                       {[0, 1, 2].map((i) => (
                         <motion.div
                           key={i}
-                          className="w-2 h-2 bg-yellow-400 rounded-full"
+                          className="w-2 h-2 bg-amber-300 rounded-full"
                           animate={{ opacity: [0.3, 1, 0.3] }}
                           transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: i * 0.2 }}
                         />
@@ -882,7 +882,11 @@ export default function PipBoyInterface() {
           </div>
 
           {/* Controles de interacción - Nueva ubicación */}
-          <motion.div initial={{ y: 50 }} animate={{ y: 0 }} className="bg-black/80 border-t-2 border-green-400/50 p-4">
+          <motion.div
+            initial={{ y: 50 }}
+            animate={{ y: 0 }}
+            className="bg-slate-900/80 border-t-2 border-slate-500/50 p-4"
+          >
             {/* Área de botones principales - Layout adaptativo pero consistente */}
             <div className="flex justify-center items-center space-x-3 mb-4 flex-wrap gap-3">
               {/* Botón principal de micrófono - Ancho fijo */}
@@ -1022,13 +1026,13 @@ export default function PipBoyInterface() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="w-full max-w-md p-3 border border-yellow-400/50 bg-yellow-400/10 rounded"
+                    className="w-full max-w-md p-3 border border-amber-300/50 bg-amber-300/10 rounded"
                   >
                     <div className="text-center">
-                      <div className="text-xs text-yellow-400 font-mono">
+                      <div className="text-xs text-amber-300 font-mono">
                         ✓ {t.audioCaptured || "AUDIO_CAPTURADO"}: {Math.round(audioBlob.size / 1024)}KB
                       </div>
-                      <div className="text-xs text-yellow-400 mt-1 font-mono">PRESS_TRANSMIT_TO_SEND</div>
+                      <div className="text-xs text-amber-300 mt-1 font-mono">PRESS_TRANSMIT_TO_SEND</div>
                     </div>
                   </motion.div>
                 )}
@@ -1039,11 +1043,11 @@ export default function PipBoyInterface() {
                     key="ready"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="w-full max-w-md p-3 border border-green-400/30 bg-green-400/5 rounded"
+                    className="w-full max-w-md p-3 border border-slate-500/30 bg-slate-600/5 rounded"
                   >
                     <div className="text-center">
-                      <div className="text-xs text-green-400 font-mono opacity-70">🎤 VOICE_INTERFACE_READY</div>
-                      <div className="text-xs text-green-400 mt-1 font-mono opacity-50">💾 CONVERSATION_PERSISTENT</div>
+                      <div className="text-xs text-white font-mono opacity-70">🎤 VOICE_INTERFACE_READY</div>
+                      <div className="text-xs text-white mt-1 font-mono opacity-50">💾 CONVERSATION_PERSISTENT</div>
                     </div>
                   </motion.div>
                 )}
@@ -1052,18 +1056,22 @@ export default function PipBoyInterface() {
           </motion.div>
 
           {/* Footer con información */}
-          <motion.div initial={{ y: 50 }} animate={{ y: 0 }} className="bg-black/80 border-t-2 border-green-400/50 p-4">
-            <div className="flex items-center justify-between text-xs">
+          <motion.div
+            initial={{ y: 50 }}
+            animate={{ y: 0 }}
+            className="bg-slate-900/80 border-t-2 border-slate-500/50 p-4"
+          >
+            <div className="flex items-center justify-between text-xs text-white">
               <div className="flex space-x-6">
                 <div>{t.neuralEngine || "NEURAL_ENGINE"}: GROQ_LPU</div>
                 <div>{t.linguisticModel || "MODEL"}: LLAMA_3.1_8B</div>
                 <div>{t.audioProcessor || "AUDIO"}: WHISPER_V3</div>
                 {/* 🚀 NUEVO: Indicador de persistencia */}
-                <div className="text-purple-400">STORAGE: LOCAL_PERSISTENT</div>
+                <div className="text-cyan-300">STORAGE: LOCAL_PERSISTENT</div>
               </div>
               <div className="flex items-center space-x-2">
                 <motion.div
-                  className="w-2 h-2 bg-green-400 rounded-full"
+                  className="w-2 h-2 bg-white rounded-full"
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                 />
@@ -1087,7 +1095,7 @@ export default function PipBoyInterface() {
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
-              className="bg-black border-2 border-red-400 p-6 max-w-md"
+              className="bg-slate-900 border-2 border-red-400 p-6 max-w-md"
             >
               <div className="text-red-400 font-mono">
                 <div className="text-lg mb-2">SYSTEM_ERROR</div>
@@ -1104,15 +1112,15 @@ export default function PipBoyInterface() {
         .pipboy-scrollbar::-webkit-scrollbar {
           width: 14px;
           background: rgba(0, 0, 0, 0.9);
-          border-left: 1px solid rgba(74, 222, 128, 0.3);
+          border-left: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .pipboy-scrollbar::-webkit-scrollbar-track {
           background: rgba(0, 0, 0, 0.95);
           border-radius: 0;
           position: relative;
-          border-left: 1px solid rgba(74, 222, 128, 0.2);
-          box-shadow: inset 0 0 3px rgba(74, 222, 128, 0.1);
+          border-left: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.1);
         }
 
         /* Efecto de barras segmentadas en el track */
@@ -1127,8 +1135,8 @@ export default function PipBoyInterface() {
             0deg,
             transparent 0px,
             transparent 8px,
-            rgba(74, 222, 128, 0.1) 8px,
-            rgba(74, 222, 128, 0.1) 10px
+            rgba(255, 255, 255, 0.1) 8px,
+            rgba(255, 255, 255, 0.1) 10px
           );
           pointer-events: none;
         }
@@ -1136,19 +1144,19 @@ export default function PipBoyInterface() {
         .pipboy-scrollbar::-webkit-scrollbar-thumb {
           background: linear-gradient(
             180deg,
-            #4ade80 0%,
-            rgba(74, 222, 128, 0.9) 20%,
-            rgba(74, 222, 128, 0.7) 40%,
-            rgba(74, 222, 128, 0.9) 60%,
-            rgba(74, 222, 128, 0.8) 80%,
-            #4ade80 100%
+            #ffffff 0%,
+            rgba(255, 255, 255, 0.9) 20%,
+            rgba(255, 255, 255, 0.7) 40%,
+            rgba(255, 255, 255, 0.9) 60%,
+            rgba(255, 255, 255, 0.8) 80%,
+            #ffffff 100%
           );
           border-radius: 2px;
-          border: 1px solid rgba(74, 222, 128, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.6);
           box-shadow: 
-            0 0 8px rgba(74, 222, 128, 0.6),
-            inset 0 0 4px rgba(74, 222, 128, 0.4),
-            inset 2px 0 2px rgba(74, 222, 128, 0.3);
+            0 0 8px rgba(255, 255, 255, 0.6),
+            inset 0 0 4px rgba(255, 255, 255, 0.4),
+            inset 2px 0 2px rgba(255, 255, 255, 0.3);
           position: relative;
           min-height: 20px;
         }
@@ -1165,8 +1173,8 @@ export default function PipBoyInterface() {
             0deg,
             transparent 0px,
             transparent 3px,
-            rgba(255, 255, 255, 0.2) 3px,
-            rgba(255, 255, 255, 0.2) 4px,
+            rgba(0, 0, 0, 0.2) 3px,
+            rgba(0, 0, 0, 0.2) 4px,
             transparent 4px,
             transparent 7px
           );
@@ -1177,87 +1185,87 @@ export default function PipBoyInterface() {
         .pipboy-scrollbar::-webkit-scrollbar-thumb:hover {
           background: linear-gradient(
             180deg,
-            #4ade80 0%,
-            rgba(74, 222, 128, 1) 20%,
-            rgba(74, 222, 128, 0.8) 40%,
-            rgba(74, 222, 128, 1) 60%,
-            rgba(74, 222, 128, 0.9) 80%,
-            #4ade80 100%
+            #ffffff 0%,
+            rgba(255, 255, 255, 1) 20%,
+            rgba(255, 255, 255, 0.8) 40%,
+            rgba(255, 255, 255, 1) 60%,
+            rgba(255, 255, 255, 0.9) 80%,
+            #ffffff 100%
           );
           box-shadow: 
-            0 0 12px rgba(74, 222, 128, 0.8),
-            inset 0 0 6px rgba(74, 222, 128, 0.6),
-            inset 2px 0 3px rgba(74, 222, 128, 0.5);
-          border-color: rgba(74, 222, 128, 0.8);
+            0 0 12px rgba(255, 255, 255, 0.8),
+            inset 0 0 6px rgba(255, 255, 255, 0.6),
+            inset 2px 0 3px rgba(255, 255, 255, 0.5);
+          border-color: rgba(255, 255, 255, 0.8);
         }
 
         .pipboy-scrollbar::-webkit-scrollbar-thumb:active {
-          background: #4ade80;
+          background: #ffffff;
           box-shadow: 
-            0 0 15px rgba(74, 222, 128, 1),
-            inset 0 0 8px rgba(74, 222, 128, 0.8),
-            inset 2px 0 4px rgba(74, 222, 128, 0.7);
-          border-color: #4ade80;
+            0 0 15px rgba(255, 255, 255, 1),
+            inset 0 0 8px rgba(255, 255, 255, 0.8),
+            inset 2px 0 4px rgba(255, 255, 255, 0.7);
+          border-color: #ffffff;
         }
 
         /* Esquinas del scrollbar */
         .pipboy-scrollbar::-webkit-scrollbar-corner {
           background: rgba(0, 0, 0, 0.95);
-          border: 1px solid rgba(74, 222, 128, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         /* Animación pulsante similar a las barras de sonido */
         @keyframes sound-bar-pulse {
           0%, 100% { 
             box-shadow: 
-              0 0 8px rgba(74, 222, 128, 0.6),
-              inset 0 0 4px rgba(74, 222, 128, 0.4),
-              inset 2px 0 2px rgba(74, 222, 128, 0.3);
+              0 0 8px rgba(255, 255, 255, 0.6),
+              inset 0 0 4px rgba(255, 255, 255, 0.4),
+              inset 2px 0 2px rgba(255, 255, 255, 0.3);
             background: linear-gradient(
               180deg,
-              #4ade80 0%,
-              rgba(74, 222, 128, 0.9) 20%,
-              rgba(74, 222, 128, 0.7) 40%,
-              rgba(74, 222, 128, 0.9) 60%,
-              rgba(74, 222, 128, 0.8) 80%,
-              #4ade80 100%
+              #ffffff 0%,
+              rgba(255, 255, 255, 0.9) 20%,
+              rgba(255, 255, 255, 0.7) 40%,
+              rgba(255, 255, 255, 0.9) 60%,
+              rgba(255, 255, 255, 0.8) 80%,
+              #ffffff 100%
             );
           }
           25% { 
             box-shadow: 
-              0 0 12px rgba(74, 222, 128, 0.8),
-              inset 0 0 6px rgba(74, 222, 128, 0.6),
-              inset 2px 0 3px rgba(74, 222, 128, 0.5);
+              0 0 12px rgba(255, 255, 255, 0.8),
+              inset 0 0 6px rgba(255, 255, 255, 0.6),
+              inset 2px 0 3px rgba(255, 255, 255, 0.5);
             background: linear-gradient(
               180deg,
-              #4ade80 0%,
-              rgba(74, 222, 128, 1) 20%,
-              rgba(74, 222, 128, 0.8) 40%,
-              rgba(74, 222, 128, 1) 60%,
-              rgba(74, 222, 128, 0.9) 80%,
-              #4ade80 100%
+              #ffffff 0%,
+              rgba(255, 255, 255, 1) 20%,
+              rgba(255, 255, 255, 0.8) 40%,
+              rgba(255, 255, 255, 1) 60%,
+              rgba(255, 255, 255, 0.9) 80%,
+              #ffffff 100%
             );
           }
           50% { 
             box-shadow: 
-              0 0 15px rgba(74, 222, 128, 1),
-              inset 0 0 8px rgba(74, 222, 128, 0.8),
-              inset 2px 0 4px rgba(74, 222, 128, 0.7);
-            background: #4ade80;
+              0 0 15px rgba(255, 255, 255, 1),
+              inset 0 0 8px rgba(255, 255, 255, 0.8),
+              inset 2px 0 4px rgba(255, 255, 255, 0.7);
+            background: #ffffff;
           }
           75% { 
             box-shadow: 
-              0 0 12px rgba(74, 222, 128, 0.8),
-              inset 0 0 6px rgba(74, 222, 128, 0.6),
-              inset 2px 0 3px rgba(74, 222, 128, 0.5);
+              0 0 12px rgba(255, 255, 255, 0.8),
+              inset 0 0 6px rgba(255, 255, 255, 0.6),
+              inset 2px 0 3px rgba(255, 255, 255, 0.5);
             background: linear-gradient(
               180deg,
-              #4ade80 0%,
-              rgba(74, 222, 128, 1) 20%,
-              rgba(74, 222, 128, 0.8) 40%,
-              rgba(74, 222, 128, 1) 60%,
-              rgba(74, 222, 128, 0.9) 80%,
-              #4ade80 100%
+              #ffffff 0%,
+              rgba(255, 255, 255, 1) 20%,
+              rgba(255, 255, 255, 0.8) 40%,
+              rgba(255, 255, 255, 1) 60%,
+              rgba(255, 255, 255, 0.9) 80%,
+              #ffffff 100%
             );
           }
         }
@@ -1271,15 +1279,15 @@ export default function PipBoyInterface() {
           animation: sound-bar-pulse 0.8s ease-in-out infinite;
         }
 
-        /* Para Firefox - usando el color #4ade80 */
+        /* Para Firefox - usando el color blanco */
         .pipboy-scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: rgba(74, 222, 128, 0.8) rgba(0, 0, 0, 0.9);
+          scrollbar-color: rgba(255, 255, 255, 0.8) rgba(0, 0, 0, 0.9);
         }
 
         /* Efecto de resplandor en el contenedor cuando se hace scroll */
         .pipboy-scrollbar:hover {
-          box-shadow: inset 2px 0 4px rgba(74, 222, 128, 0.2);
+          box-shadow: inset 2px 0 4px rgba(255, 255, 255, 0.2);
         }
       `}</style>
     </div>

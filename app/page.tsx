@@ -33,7 +33,7 @@ export default function HomePage() {
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-6">
         {/* Terminal Header */}
-        <div className="border-2 border-green-400 bg-black/80 p-6 mb-6 relative">
+        <div className="border-2 border-white/30 bg-black/80 p-6 mb-6 relative">
           <div className="absolute top-2 left-2 flex space-x-1">
             <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
@@ -43,12 +43,12 @@ export default function HomePage() {
           <div className="text-center pt-8">
             <div className="text-green-400 text-xs mb-2 tracking-widest">ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL</div>
 
-            <h1 className="text-4xl md:text-6xl font-bold text-green-400 mb-4 tracking-wider">A.L.F.R.E.D</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-wider">A.L.F.R.E.D</h1>
 
-            <div className="text-cyan-400 text-sm tracking-widest mb-2">{t.alfredSubtitle1}</div>
-            <div className="text-cyan-400  text-sm tracking-widest mb-4">{t.alfredSubtitle2}</div>
+            <div className="text-white text-sm tracking-widest mb-2">{t.alfredSubtitle1}</div>
+            <div className="text-white text-sm tracking-widest mb-4">{t.alfredSubtitle2}</div>
 
-            <div className="text-green-300 text-xs">
+            <div className="text-white text-xs">
               {">"} {t.conversationalAI} {"<"}
             </div>
             <div className="text-amber-300 text-xs mt-1">
@@ -59,39 +59,39 @@ export default function HomePage() {
 
         {/* System Status */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="border border-green-400 bg-black/60 p-4">
+          <div className="border border-white/30 bg-black/60 p-4">
             <div className="text-amber-300 text-xs mb-2">SYSTEM STATUS</div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-cyan-400  text-xs">{t.systemOperational}</span>
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              <span className="text-white text-xs">{t.systemOperational}</span>
             </div>
           </div>
 
-          <div className="border border-green-400 bg-black/60 p-4">
+          <div className="border border-white/30 bg-black/60 p-4">
             <div className="text-amber-300 text-xs mb-2">AI CORE</div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
-              <span className="text-cyan-400  text-xs">{t.aiActive}</span>
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+              <span className="text-white text-xs">{t.aiActive}</span>
             </div>
           </div>
 
-          <div className="border border-green-400 bg-black/60 p-4">
+          <div className="border border-white/30 bg-black/60 p-4">
             <div className="text-amber-300 text-xs mb-2">INTERFACE</div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
-              <span className="text-cyan-400  text-xs">{t.interfaceReady}</span>
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+              <span className="text-white text-xs">{t.interfaceReady}</span>
             </div>
           </div>
         </div>
 
         {/* Main Interface Access */}
         <div className="mb-6">
-          <div className="border-2 border-green-400 bg-black/80 hover:bg-green-900/20 transition-all duration-300">
-            <div className="border-b border-green-400 p-4 bg-green-400/10">
+          <div className="border-2 border-white/30 bg-black/80 hover:bg-green-900/20 transition-all duration-300">
+            <div className="border-b border-white/30 p-4 bg-green-400/10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <Monitor className="w-6 h-6 text-green-400" />
-                  <MessageCircle className="w-6 h-6 text-green-400" />
+                  <Monitor className="w-6 h-6 text-white" />
+                  <MessageCircle className="w-6 h-6 text-white" />
                   <Zap className="w-6 h-6 text-amber-300" />
                 </div>
                 <div className="text-green-400 text-sm font-bold">{t.mainInterface}</div>
@@ -99,30 +99,30 @@ export default function HomePage() {
             </div>
 
             <div className="p-8">
-              <h3 className="text-green-400 text-2xl font-bold mb-6 tracking-wider text-center">
+              <h3 className="text-white text-2xl font-bold mb-6 tracking-wider text-center">
                 {t.alfredTerminalInterface}
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-sm">
                 <div className="space-y-2">
-                  <div className="text-cyan-400">
+                  <div className="text-white">
                     {">"} {t.retrofuturisticDesign}
                   </div>
-                  <div className="text-cyan-400">
+                  <div className="text-white">
                     {">"} {t.realtimeVoiceComm}
                   </div>
-                  <div className="text-cyan-400">
+                  <div className="text-white">
                     {">"} {t.advancedNeuralTranscription}
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <div className="text-cyan-400">
+                  <div className="text-white">
                     {">"} {t.animatedAvatarSystem}
                   </div>
-                  <div className="text-cyan-400">
+                  <div className="text-white">
                     {">"} {t.multilingualSupport5Lang}
                   </div>
-                  <div className="text-cyan-400">
+                  <div className="text-white">
                     {">"} {t.pipboyAesthetics}
                   </div>
                 </div>
@@ -145,36 +145,36 @@ export default function HomePage() {
         </div>
 
         {/* Technical Specifications */}
-        <div className="border-2 border-green-400 bg-black/80 mb-6">
-          <div className="border-b border-green-400 p-3 bg-green-400/10">
+        <div className="border-2 border-white/30 bg-black/80 mb-6">
+          <div className="border-b border-white/30 p-3 bg-green-400/10">
             <div className="flex items-center space-x-2">
               <Cpu className="w-4 h-4 text-green-400" />
-              <span className="text-green-400 text-sm font-bold tracking-wider">{t.technicalSpecs}</span>
+              <span className="text-white text-sm font-bold tracking-wider">{t.technicalSpecs}</span>
             </div>
           </div>
 
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="border border-green-400 p-4 bg-black/40">
-                <div className="text-amber-300 ext-sm font-bold mb-3 tracking-wider">{t.neuralEngine}</div>
-                <div className="text-cyan-400 text-xs mb-1">{">"} Groq LPU Architecture</div>
-                <div className="text-cyan-400 text-xs opacity-70">
+              <div className="border border-white/30 p-4 bg-black/40">
+                <div className="text-white text-sm font-bold mb-3 tracking-wider">{t.neuralEngine}</div>
+                <div className="text-white text-xs mb-1">{">"} Groq LPU Architecture</div>
+                <div className="text-white text-xs opacity-70">
                   {">"} {t.ultraFastInference}
                 </div>
               </div>
 
-              <div className="border border-green-400 p-4 bg-black/40">
-                <div className="text-amber-300 text-sm font-bold mb-3 tracking-wider">{t.linguisticModel}</div>
-                <div className="text-cyan-400 text-xs mb-1">{">"} Llama 3.1 8B Instant</div>
-                <div className="text-cyan-400 text-xs opacity-70">
+              <div className="border border-white/30 p-4 bg-black/40">
+                <div className="text-white text-sm font-bold mb-3 tracking-wider">{t.linguisticModel}</div>
+                <div className="text-white text-xs mb-1">{">"} Llama 3.1 8B Instant</div>
+                <div className="text-white text-xs opacity-70">
                   {">"} {t.advancedReasoning}
                 </div>
               </div>
 
-              <div className="border border-green-400 p-4 bg-black/40">
-                <div className="text-amber-300 text-sm font-bold mb-3 tracking-wider">{t.audioProcessor}</div>
-                <div className="text-cyan-400 text-xs mb-1">{">"} Whisper Large V3</div>
-                <div className="text-cyan-400 text-xs opacity-70">
+              <div className="border border-white/30 p-4 bg-black/40">
+                <div className="text-white text-sm font-bold mb-3 tracking-wider">{t.audioProcessor}</div>
+                <div className="text-white text-xs mb-1">{">"} Whisper Large V3</div>
+                <div className="text-white text-xs opacity-70">
                   {">"} {t.languagesSupport}
                 </div>
               </div>
@@ -183,23 +183,23 @@ export default function HomePage() {
         </div>
 
         {/* Terminal Footer */}
-        <div className="border border-green-400 bg-black/60 p-4 text-center">
-          <div className="text-green-400 text-xs">
-          ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL - COPYRIGHT 2287 ROBCO INDUSTRIES
-        </div>
-        <div className="text-amber-300 text-xs mt-2 border-t border-green-400/30 pt-2">
-          {">"} CREATED BY: BRIAN CABRERA - NEURAL ARCHITECT {"<"}
-        </div>
-        <div className="text-cyan-400 text-xs mt-1">
-          <a
-            href="https://links.briancabrera.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-yellow-400 transition-colors duration-300 underline decoration-dotted"
-          >
-            {">"} ACCESS_CREATOR_PROFILE: links.briancabrera.com {"<"}
-          </a>
-        </div>
+        <div className="border border-white/30 bg-black/60 p-4 text-center">
+          <div className="text-white text-xs">
+            ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL - COPYRIGHT 2287 ROBCO INDUSTRIES
+          </div>
+          <div className="text-amber-300 text-xs mt-2 border-t border-green-400/30 pt-2">
+            {">"} CREATED BY: BRIAN CABRERA - NEURAL ARCHITECT {"<"}
+          </div>
+          <div className="text-cyan-400 text-xs mt-1">
+            <a
+              href="https://links.briancabrera.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-yellow-400 transition-colors duration-300 underline decoration-dotted"
+            >
+              {">"} ACCESS_CREATOR_PROFILE: links.briancabrera.com {"<"}
+            </a>
+          </div>
         </div>
       </div>
 
