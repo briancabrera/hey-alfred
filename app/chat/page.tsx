@@ -617,7 +617,7 @@ export default function PipBoyInterface() {
               <div className="flex items-center space-x-4">
                 <div className="text-lg font-bold">DIALOGUE_TERMINAL</div>
                 <motion.div
-                  className="text-xs opacity-70"
+                  className="text-amber-300 text-xs opacity-70"
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                 >
