@@ -82,7 +82,7 @@ const PipBoyLanguageSelector = () => {
   }, [])
 
   return (
-    <div ref={dropdownRef} className="relative">
+    <div ref={dropdownRef} className="relative z-40">
       {/* Trigger Button - más compacto */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
