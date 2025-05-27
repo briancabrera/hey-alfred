@@ -262,14 +262,14 @@ const TerminalMessage = ({
     <motion.div
       initial={{ opacity: 0, x: isUser ? 20 : -20 }}
       animate={{ opacity: 1, x: 0 }}
-      className={`mb-3 lg:mb-4 font-mono text-xs lg:text-sm ${isUser ? "text-right" : "text-left"}`}
+      className={`mb-3 xl:mb-4 font-mono text-xs xl:text-sm ${isUser ? "text-right" : "text-left"}`}
     >
-      <div className={`inline-block max-w-[90%] lg:max-w-[80%] ${isUser ? "text-white" : "text-white"}`}>
+      <div className={`inline-block max-w-[90%] xl:max-w-[80%] ${isUser ? "text-white" : "text-white"}`}>
         <div className="text-xs opacity-70 mb-1">
           {isUser ? "{'>'} USER_INPUT" : "{'>'} ALFRED_RESPONSE"}
           <span className="ml-2 text-amber-300">[{displayName}]</span>
         </div>
-        <div className={`p-2 lg:p-3 border ${isUser ? "border-white/30" : "border-slate-500/50"} bg-black/50`}>
+        <div className={`p-2 xl:p-3 border ${isUser ? "border-white/30" : "border-slate-500/50"} bg-black/50`}>
           {message.content}
         </div>
       </div>
@@ -332,11 +332,11 @@ const ResetConversationButton = ({ onReset }: { onReset: () => void }) => {
   }
 
   return (
-    <div className="w-28 lg:w-36">
+    <div className="w-28 xl:w-36">
       <PipBoyButton onClick={handleReset} variant={showConfirm ? "danger" : "warning"}>
-        <div className="flex items-center justify-center space-x-1 lg:space-x-2">
-          {showConfirm ? <Trash2 className="w-3 h-3 lg:w-4 lg:h-4" /> : <RotateCcw className="w-3 h-3 lg:w-4 lg:h-4" />}
-          <span className="text-xs lg:text-sm">{showConfirm ? "CONFIRM?" : "RESET"}</span>
+        <div className="flex items-center justify-center space-x-1 xl:space-x-2">
+          {showConfirm ? <Trash2 className="w-3 h-3 xl:w-4 xl:h-4" /> : <RotateCcw className="w-3 h-3 xl:w-4 xl:h-4" />}
+          <span className="text-xs xl:text-sm">{showConfirm ? "CONFIRM?" : "RESET"}</span>
         </div>
       </PipBoyButton>
     </div>
@@ -715,35 +715,35 @@ export default function PipBoyInterface() {
       </div>
 
       {/* Contenedor principal responsive */}
-      <div className="relative z-10 h-screen flex flex-col lg:flex-row">
+      <div className="relative z-10 h-screen flex flex-col xl:flex-row">
         {/* Panel izquierdo - Responsive */}
         <motion.div
           initial={{ x: -300 }}
           animate={{ x: 0 }}
           className="
-          w-full lg:w-80 
-          bg-black/80 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-500/50 
-          p-4 lg:p-6
-          order-1 lg:order-1
+          w-full xl:w-80 
+          bg-black/80 border-b-2 xl:border-b-0 xl:border-r-2 border-slate-500/50 
+          p-4 xl:p-6
+          order-1 xl:order-1
           flex-shrink-0
         "
         >
           {/* Header responsive */}
-          <div className="text-center mb-4 lg:mb-8">
+          <div className="text-center mb-4 xl:mb-8">
             <motion.h1
-              className="text-xl lg:text-2xl font-bold tracking-wider mb-2 text-white"
+              className="text-xl xl:text-2xl font-bold tracking-wider mb-2 text-white"
               animate={{ textShadow: ["0 0 5px #ffffff", "0 0 10px #ffffff", "0 0 5px #ffffff"] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
             >
               A.L.F.R.E.D
             </motion.h1>
-            <div className="text-xs opacity-70 text-white hidden lg:block">{t.alfredSubtitle1}</div>
-            <div className="text-xs opacity-70 text-white hidden lg:block">{t.alfredSubtitle2}</div>
+            <div className="text-xs opacity-70 text-white hidden xl:block">{t.alfredSubtitle1}</div>
+            <div className="text-xs opacity-70 text-white hidden xl:block">{t.alfredSubtitle2}</div>
           </div>
 
           {/* Avatar responsive */}
-          <div className="mb-4 lg:mb-10 flex justify-center lg:block">
-            <div className="scale-75 lg:scale-100">
+          <div className="mb-4 xl:mb-10 flex justify-center xl:block">
+            <div className="scale-75 xl:scale-100">
               <AlfredAudioVisualizer
                 isActive={isActive || isLoading || isProcessingUnsupported}
                 isSpeaking={isSpeaking}
@@ -752,16 +752,16 @@ export default function PipBoyInterface() {
           </div>
 
           {/* Status Panel responsive */}
-          <Card className="bg-black/50 border-slate-500/50 p-3 lg:p-4 mb-4 lg:mb-6">
-            <div className="space-y-2 lg:space-y-3">
+          <Card className="bg-black/50 border-slate-500/50 p-3 xl:p-4 mb-4 xl:mb-6">
+            <div className="space-y-2 xl:space-y-3">
               {/* Header del Status Panel con selector de idioma */}
-              <div className="flex justify-between items-center mb-2 lg:mb-4 pb-2 border-b border-slate-500/30">
-                <span className="text-xs lg:text-sm font-bold text-white tracking-wider">SYSTEM_STATUS</span>
+              <div className="flex justify-between items-center mb-2 xl:mb-4 pb-2 border-b border-slate-500/30">
+                <span className="text-xs xl:text-sm font-bold text-white tracking-wider">SYSTEM_STATUS</span>
                 <PipBoyLanguageSelector />
               </div>
 
               {/* Layout responsive: Grid en mobile, dos columnas en desktop */}
-              <div className="lg:hidden">
+              <div className="xl:hidden">
                 {/* Mobile: Grid compacto */}
                 <div className="grid grid-cols-2 gap-2">
 
@@ -795,7 +795,7 @@ export default function PipBoyInterface() {
               </div>
 
               {/* Desktop: Layout de dos columnas como en la imagen */}
-              <div className="hidden lg:block space-y-3">
+              <div className="hidden xl:block space-y-3">
                 {/* SYSTEM_STATUS */}
 
                 {/* USER_LANG */}
@@ -841,16 +841,16 @@ export default function PipBoyInterface() {
         </motion.div>
 
         {/* Panel principal - Responsive */}
-        <div className="flex-1 flex flex-col order-2 lg:order-2 min-h-0">
+        <div className="flex-1 flex flex-col order-2 xl:order-2 min-h-0">
           {/* Header del terminal responsive */}
           <motion.div
             initial={{ y: -50 }}
             animate={{ y: 0 }}
-            className="bg-black/80 border-b-2 border-slate-500/50 p-2 lg:p-4 flex-shrink-0"
+            className="bg-black/80 border-b-2 border-slate-500/50 p-2 xl:p-4 flex-shrink-0"
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2 lg:space-x-4">
-                <div className="text-sm lg:text-lg font-bold text-white">DIALOGUE_TERMINAL</div>
+              <div className="flex items-center space-x-2 xl:space-x-4">
+                <div className="text-sm xl:text-xl font-bold text-white">DIALOGUE_TERMINAL</div>
                 <motion.div
                   className="text-amber-300 text-xs opacity-70 hidden md:block"
                   animate={{ opacity: [0.5, 1, 0.5] }}
@@ -860,10 +860,10 @@ export default function PipBoyInterface() {
                 </motion.div>
               </div>
 
-              <div className="flex items-center space-x-2 lg:space-x-4 text-white text-xs">
+              <div className="flex items-center space-x-2 xl:space-x-4 text-white text-xs">
                 <div className="hidden sm:block">MSGS: {messages.length}</div>
                 <div>STATUS: {isLoading || isProcessingUnsupported ? "PROC" : "READY"}</div>
-                <div className="text-cyan-300 hidden lg:block">💾 PERSISTENT</div>
+                <div className="text-cyan-300 hidden xl:block">💾 PERSISTENT</div>
               </div>
             </div>
           </motion.div>
@@ -871,24 +871,24 @@ export default function PipBoyInterface() {
           {/* Área de mensajes responsive */}
           <div
             ref={messagesContainerRef}
-            className="flex-1 p-3 lg:p-6 overflow-y-auto bg-black/60 pipboy-scrollbar min-h-0"
+            className="flex-1 p-3 xl:p-6 overflow-y-auto bg-black/60 pipboy-scrollbar min-h-0"
           >
             {/* Contenido de mensajes igual pero con padding responsive */}
             <AnimatePresence>
               {messages.length === 0 ? (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mt-10 lg:mt-20">
-                  <div className="text-4xl lg:text-6xl mb-4">🤖</div>
-                  <div className="text-lg lg:text-xl mb-4 text-white">
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mt-10 xl:mt-20">
+                  <div className="text-4xl xl:text-6xl mb-4">🤖</div>
+                  <div className="text-xl xl:text-xl mb-4 text-white">
                     {t.systemInitialized || "SYSTEM_INITIALIZED"}
                   </div>
-                  <div className="text-sm opacity-70 mb-4 lg:mb-8 text-white">
+                  <div className="text-sm opacity-70 mb-4 xl:mb-8 text-white">
                     {t.alsoKnownAs || "A.L.F.R.E.D READY FOR COMMUNICATION"}
                   </div>
-                  <div className="text-xs space-y-1 lg:space-y-2 max-w-sm lg:max-w-md mx-auto text-white px-4">
+                  <div className="text-xs space-y-1 xl:space-y-2 max-w-sm xl:max-w-md mx-auto text-white px-4">
                     <div>{">"} LANGUAGES: ES | EN | FR | IT | PT</div>
-                    <div className="hidden lg:block">{">"} VOICE_MODE: RECORD → STOP → TRANSMIT</div>
-                    <div className="lg:hidden">{">"} VOICE: REC → STOP → SEND</div>
-                    <div className="hidden lg:block">{">"} REAL_TIME_TRANSLATION: ENABLED</div>
+                    <div className="hidden xl:block">{">"} VOICE_MODE: RECORD → STOP → TRANSMIT</div>
+                    <div className="xl:hidden">{">"} VOICE: REC → STOP → SEND</div>
+                    <div className="hidden xl:block">{">"} REAL_TIME_TRANSLATION: ENABLED</div>
                     <div className="text-cyan-300">{">"} CONVERSATION_PERSISTENCE: ACTIVE</div>
                     <div className="text-amber-300">
                       {">"} {t.tryExample || 'TRY: "Hello Alfred"'}
@@ -941,26 +941,26 @@ export default function PipBoyInterface() {
           <motion.div
             initial={{ y: 50 }}
             animate={{ y: 0 }}
-            className="bg-black/80 border-t-2 border-slate-500/50 p-2 lg:p-4 flex-shrink-0"
+            className="bg-black/80 border-t-2 border-slate-500/50 p-2 xl:p-4 flex-shrink-0"
           >
             {/* Botones principales responsive */}
-            <div className="flex justify-center items-center space-x-2 lg:space-x-3 mb-3 lg:mb-4 flex-wrap gap-2 lg:gap-3">
+            <div className="flex justify-center items-center space-x-2 xl:space-x-3 mb-3 xl:mb-4 flex-wrap gap-2 xl:gap-3">
               {/* Botón principal de micrófono responsive */}
-              <div className="w-28 lg:w-36">
+              <div className="w-28 xl:w-36">
                 <PipBoyButton onClick={handleMicClick} active={isRecording || !!audioBlob} variant={micState.variant}>
-                  <div className="flex items-center justify-center space-x-1 lg:space-x-2">
-                    <micState.icon className="w-3 h-3 lg:w-4 lg:h-4" />
-                    <span className="text-xs lg:text-sm">{micState.text}</span>
+                  <div className="flex items-center justify-center space-x-1 xl:space-x-2">
+                    <micState.icon className="w-3 h-3 xl:w-4 xl:h-4" />
+                    <span className="text-xs xl:text-sm">{micState.text}</span>
                   </div>
                 </PipBoyButton>
               </div>
 
               {/* Botón MUTE responsive */}
-              <div className="w-28 lg:w-36">
+              <div className="w-28 xl:w-36">
                 <PipBoyButton onClick={stop} disabled={!isSpeaking} variant="danger">
-                  <div className="flex items-center justify-center space-x-1 lg:space-x-2">
-                    <VolumeX className="w-3 h-3 lg:w-4 lg:h-4" />
-                    <span className="text-xs lg:text-sm">{t.mute || "MUTE"}</span>
+                  <div className="flex items-center justify-center space-x-1 xl:space-x-2">
+                    <VolumeX className="w-3 h-3 xl:w-4 xl:h-4" />
+                    <span className="text-xs xl:text-sm">{t.mute || "MUTE"}</span>
                   </div>
                 </PipBoyButton>
               </div>
@@ -973,7 +973,7 @@ export default function PipBoyInterface() {
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.8, x: -20 }}
                     transition={{ duration: 0.3 }}
-                    className="w-28 lg:w-36"
+                    className="w-28 xl:w-36"
                   >
                     <PipBoyButton
                       onClick={() => {
@@ -988,9 +988,9 @@ export default function PipBoyInterface() {
                       }}
                       variant="warning"
                     >
-                      <div className="flex items-center justify-center space-x-1 lg:space-x-2">
-                        <Volume2 className="w-3 h-3 lg:w-4 lg:h-4" />
-                        <span className="text-xs lg:text-sm">PREVIEW</span>
+                      <div className="flex items-center justify-center space-x-1 xl:space-x-2">
+                        <Volume2 className="w-3 h-3 xl:w-4 xl:h-4" />
+                        <span className="text-xs xl:text-sm">PREVIEW</span>
                       </div>
                     </PipBoyButton>
                   </motion.div>
@@ -999,7 +999,7 @@ export default function PipBoyInterface() {
 
               {/* Botón REPETIR responsive */}
               {!isRecording && !audioBlob && (
-                <div className="w-28 lg:w-36">
+                <div className="w-28 xl:w-36">
                   <PipBoyButton
                     onClick={() => {
                       const lastMessage = messages[messages.length - 1]
@@ -1010,9 +1010,9 @@ export default function PipBoyInterface() {
                     disabled={!messages.length || messages[messages.length - 1]?.role !== "assistant"}
                     variant="warning"
                   >
-                    <div className="flex items-center justify-center space-x-1 lg:space-x-2">
-                      <Volume2 className="w-3 h-3 lg:w-4 lg:h-4" />
-                      <span className="text-xs lg:text-sm">{t.repeat || "REPEAT"}</span>
+                    <div className="flex items-center justify-center space-x-1 xl:space-x-2">
+                      <Volume2 className="w-3 h-3 xl:w-4 xl:h-4" />
+                      <span className="text-xs xl:text-sm">{t.repeat || "REPEAT"}</span>
                     </div>
                   </PipBoyButton>
                 </div>
@@ -1026,7 +1026,7 @@ export default function PipBoyInterface() {
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.8, x: 20 }}
                     transition={{ duration: 0.3 }}
-                    className="w-28 lg:w-36"
+                    className="w-28 xl:w-36"
                   >
                     <PipBoyButton
                       onClick={() => {
@@ -1034,9 +1034,9 @@ export default function PipBoyInterface() {
                       }}
                       variant="warning"
                     >
-                      <div className="flex items-center justify-center space-x-1 lg:space-x-2">
-                        <Mic className="w-3 h-3 lg:w-4 lg:h-4" />
-                        <span className="text-xs lg:text-sm">RE_REC</span>
+                      <div className="flex items-center justify-center space-x-1 xl:space-x-2">
+                        <Mic className="w-3 h-3 xl:w-4 xl:h-4" />
+                        <span className="text-xs xl:text-sm">RE_REC</span>
                       </div>
                     </PipBoyButton>
                   </motion.div>
@@ -1045,14 +1045,14 @@ export default function PipBoyInterface() {
 
               {/* Botón RESET responsive */}
               {!isRecording && !audioBlob && (
-                <div className="w-28 lg:w-36">
+                <div className="w-28 xl:w-36">
                   <ResetConversationButton onReset={resetConversation} />
                 </div>
               )}
             </div>
 
             {/* Indicadores de estado responsive */}
-            <div className="h-12 lg:h-16 flex items-center justify-center">
+            <div className="h-12 xl:h-16 flex items-center justify-center">
               <AnimatePresence mode="wait">
                 {isRecording && (
                   <motion.div
@@ -1060,11 +1060,11 @@ export default function PipBoyInterface() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="w-full max-w-sm lg:max-w-md p-2 lg:p-3 border border-red-400/50 bg-red-400/10 rounded"
+                    className="w-full max-w-sm xl:max-w-md p-2 xl:p-3 border border-red-400/50 bg-red-400/10 rounded"
                   >
                     <div className="flex items-center justify-center space-x-2">
                       <motion.div
-                        className="w-2 h-2 lg:w-3 lg:h-3 bg-red-400 rounded-full"
+                        className="w-2 h-2 xl:w-3 xl:h-3 bg-red-400 rounded-full"
                         animate={{ opacity: [1, 0.3, 1] }}
                         transition={{ duration: 0.5, repeat: Number.POSITIVE_INFINITY }}
                       />
@@ -1081,7 +1081,7 @@ export default function PipBoyInterface() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="w-full max-w-sm lg:max-w-md p-2 lg:p-3 border border-amber-300/50 bg-amber-300/10 rounded"
+                    className="w-full max-w-sm xl:max-w-md p-2 xl:p-3 border border-amber-300/50 bg-amber-300/10 rounded"
                   >
                     <div className="text-center">
                       <div className="text-xs text-amber-300 font-mono">
@@ -1097,7 +1097,7 @@ export default function PipBoyInterface() {
                     key="ready"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="w-full max-w-sm lg:max-w-md p-2 lg:p-3 border border-slate-500/30 bg-slate-600/5 rounded"
+                    className="w-full max-w-sm xl:max-w-md p-2 xl:p-3 border border-slate-500/30 bg-slate-600/5 rounded"
                   >
                     <div className="text-center">
                       <div className="text-xs text-white font-mono opacity-70">🎤 VOICE_INTERFACE_READY</div>
@@ -1113,18 +1113,18 @@ export default function PipBoyInterface() {
           <motion.div
             initial={{ y: 50 }}
             animate={{ y: 0 }}
-            className="bg-black/80 border-t-2 border-slate-500/50 p-2 lg:p-4 flex-shrink-0"
+            className="bg-black/80 border-t-2 border-slate-500/50 p-2 xl:p-4 flex-shrink-0"
           >
             <div className="flex items-center justify-between text-xs text-white">
-              <div className="flex space-x-2 lg:space-x-6 overflow-x-auto">
+              <div className="flex space-x-2 xl:space-x-6 overflow-x-auto">
                 <div className="whitespace-nowrap">{t.neuralEngine || "ENGINE"}: GROQ</div>
                 <div className="whitespace-nowrap hidden sm:block">{t.linguisticModel || "MODEL"}: LLAMA_3.1</div>
                 <div className="whitespace-nowrap hidden md:block">{t.audioProcessor || "AUDIO"}: WHISPER_V3</div>
-                <div className="text-cyan-300 whitespace-nowrap hidden lg:block">STORAGE: LOCAL_PERSISTENT</div>
+                <div className="text-cyan-300 whitespace-nowrap hidden xl:block">STORAGE: LOCAL_PERSISTENT</div>
               </div>
               <div className="flex items-center space-x-2 flex-shrink-0">
                 <motion.div
-                  className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-white rounded-full"
+                  className="w-1.5 h-1.5 xl:w-2 xl:h-2 bg-white rounded-full"
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                 />
@@ -1149,10 +1149,10 @@ export default function PipBoyInterface() {
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
-              className="bg-black border-2 border-red-400 p-4 lg:p-6 max-w-sm lg:max-w-md w-full"
+              className="bg-black border-2 border-red-400 p-4 xl:p-6 max-w-sm xl:max-w-md w-full"
             >
               <div className="text-red-400 font-mono">
-                <div className="text-base lg:text-lg mb-2">SYSTEM_ERROR</div>
+                <div className="text-base xl:text-xl mb-2">SYSTEM_ERROR</div>
                 <div className="text-sm">{error}</div>
               </div>
             </motion.div>
