@@ -807,19 +807,6 @@ export default function PipBoyInterface() {
               {/* Desktop: Layout de dos columnas como en la imagen */}
               <div className="hidden lg:block space-y-3">
                 {/* SYSTEM_STATUS */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-white font-medium tracking-wider">SYSTEM_STATUS:</span>
-                  <motion.div
-                    className="flex items-center space-x-2"
-                    animate={{ opacity: [0.5, 1, 0.5] }}
-                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                  >
-                    <div className="w-2 h-2 bg-white rounded-full" />
-                    <span className="text-sm text-white font-bold tracking-wider">
-                      {t.systemActive || "SISTEMA ACTIVO"}
-                    </span>
-                  </motion.div>
-                </div>
 
                 {/* USER_LANG */}
                 <div className="flex justify-between items-center">
