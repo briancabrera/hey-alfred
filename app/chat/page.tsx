@@ -760,42 +760,103 @@ export default function PipBoyInterface() {
                 <PipBoyLanguageSelector />
               </div>
 
-              {/* Status items responsive - Grid en mobile */}
-              <div className="grid grid-cols-2 lg:block gap-2 lg:gap-0 lg:space-y-3">
-                <div className="flex justify-between items-center lg:block lg:space-y-1">
-                  <span className="text-xs text-white font-medium">STATUS:</span>
+              {/* Layout responsive: Grid en mobile, dos columnas en desktop */}
+              <div className="lg:hidden">
+                {/* Mobile: Grid compacto */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-white font-medium">STATUS:</span>
+                    <motion.div
+                      className="flex items-center space-x-1"
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                    >
+                      <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                      <span className="text-xs text-white font-bold">{t.systemActive || "ONLINE"}</span>
+                    </motion.div>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-white font-medium">USER:</span>
+                    <span className="text-xs text-amber-300 font-bold">
+                      {getLanguageName(userLanguage).slice(0, 3)}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-white font-medium">AI:</span>
+                    <span className="text-xs text-cyan-300 font-bold">
+                      {getLanguageName(currentLanguage).slice(0, 3)}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-white font-medium">VOICE:</span>
+                    <span className="text-xs text-white font-bold">{isSpeaking ? "SPEAK" : "READY"}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center col-span-2">
+                    <span className="text-xs text-white font-medium">MEMORY:</span>
+                    <span className="text-xs text-cyan-300 font-bold">
+                      {messages.length > 0 ? `${messages.length} MSGS` : "EMPTY"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop: Layout de dos columnas como en la imagen */}
+              <div className="hidden lg:block space-y-3">
+                {/* SYSTEM_STATUS */}
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-white font-medium tracking-wider">SYSTEM_STATUS:</span>
                   <motion.div
-                    className="flex items-center space-x-1 lg:space-x-2"
+                    className="flex items-center space-x-2"
                     animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                   >
-                    <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-white rounded-full" />
-                    <span className="text-xs text-white font-bold">{t.systemActive || "ONLINE"}</span>
+                    <div className="w-2 h-2 bg-white rounded-full" />
+                    <span className="text-sm text-white font-bold tracking-wider">
+                      {t.systemActive || "SISTEMA ACTIVO"}
+                    </span>
                   </motion.div>
                 </div>
 
-                <div className="flex justify-between items-center lg:block lg:space-y-1">
-                  <span className="text-xs text-white font-medium">USER:</span>
-                  <span className="text-xs text-amber-300 font-bold">{getLanguageName(userLanguage).slice(0, 3)}</span>
-                </div>
-
-                <div className="flex justify-between items-center lg:block lg:space-y-1">
-                  <span className="text-xs text-white font-medium">AI:</span>
-                  <span className="text-xs text-cyan-300 font-bold">
-                    {getLanguageName(currentLanguage).slice(0, 3)}
+                {/* USER_LANG */}
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-white font-medium tracking-wider">USER_LANG:</span>
+                  <span className="text-sm text-amber-300 font-bold tracking-wider">
+                    {getLanguageName(userLanguage)}
                   </span>
                 </div>
 
-                <div className="flex justify-between items-center lg:block lg:space-y-1">
-                  <span className="text-xs text-white font-medium">VOICE:</span>
-                  <span className="text-xs text-white font-bold">{isSpeaking ? "SPEAK" : "READY"}</span>
+                {/* AI_LANG */}
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-white font-medium tracking-wider">AI_LANG:</span>
+                  <span className="text-sm text-cyan-300 font-bold tracking-wider">
+                    {getLanguageName(currentLanguage)}
+                  </span>
                 </div>
 
-                <div className="flex justify-between items-center lg:block lg:space-y-1 col-span-2 lg:col-span-1">
-                  <span className="text-xs text-white font-medium">MEMORY:</span>
-                  <span className="text-xs text-cyan-300 font-bold">
+                {/* VOICE_MODE */}
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-white font-medium tracking-wider">VOICE_MODE:</span>
+                  <span className="text-sm text-white font-bold tracking-wider">
+                    {isSpeaking ? "SPEAKING" : "READY"}
+                  </span>
+                </div>
+
+                {/* MEMORY */}
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-white font-medium tracking-wider">MEMORY:</span>
+                  <span className="text-sm text-cyan-300 font-bold tracking-wider">
                     {messages.length > 0 ? `${messages.length} MSGS` : "EMPTY"}
                   </span>
+                </div>
+
+                {/* INTERFACE */}
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-white font-medium tracking-wider">INTERFACE:</span>
+                  <span className="text-sm text-cyan-300 font-bold tracking-wider">PIP-BOY_V3.0</span>
                 </div>
               </div>
             </div>
