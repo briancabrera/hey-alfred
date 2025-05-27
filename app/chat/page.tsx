@@ -111,7 +111,7 @@ const PipBoyLanguageSelector = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 min-w-[180px] bg-black/95 border border-slate-500/50 shadow-xl shadow-white/25 overflow-hidden z-[9999]"
+            className="absolute top-full right-0 mt-2 min-w-[180px] bg-black/95 border border-slate-500/50 shadow-xl shadow-white/25 overflow-hidden"
           >
             <div className="py-1">
               {availableLanguages.map((lang) => (
@@ -840,12 +840,13 @@ export default function PipBoyInterface() {
         </motion.div>
 
         {/* Panel principal - Responsive */}
-        <div className="flex-1 flex flex-col order-2 xl:order-2 min-h-0">
+        <div className="flex-1 flex flex-col order-2 xl:order-2 min-h-0 ">
           {/* Header del terminal responsive */}
           <motion.div
             initial={{ y: -50 }}
             animate={{ y: 0 }}
-            className="bg-black/80 border-b-2 border-slate-500/50 p-2 xl:p-4 flex-shrink-0 z-[9999]"
+            className="bg-black/80 border-b-2 border-slate-500/50 p-2 xl:p-4 flex-shrink-0"
+
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2 xl:space-x-4">
