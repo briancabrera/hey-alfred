@@ -414,7 +414,7 @@ export default function PipBoyInterface() {
     }
   }
 
-  // 🚀 NUEVO: Cargar conversación al inicializar
+  // 🚀 NUEVO: Cargar conversación al inicializa
   useEffect(() => {
     console.log("🚀 Inicializando interfaz de Alfred...")
     const hasData = loadFromLocalStorage()
