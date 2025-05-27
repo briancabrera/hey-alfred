@@ -845,7 +845,7 @@ export default function PipBoyInterface() {
           <motion.div
             initial={{ y: -50 }}
             animate={{ y: 0 }}
-            className="bg-black/80 border-b-2 border-slate-500/50 p-2 xl:p-4 flex-shrink-0"
+            className="bg-black/80 border-b-2 border-slate-500/50 p-2 xl:p-4 flex-shrink-0 z-[9999]"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2 xl:space-x-4">
