@@ -764,22 +764,18 @@ export default function PipBoyInterface() {
               <div className="lg:hidden">
                 {/* Mobile: Grid compacto */}
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-white font-medium">STATUS:</span>
-                    <motion.div
-                      className="flex items-center space-x-1"
-                      animate={{ opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                    >
-                      <div className="w-1.5 h-1.5 bg-white rounded-full" />
-                      <span className="text-xs text-white font-bold">{t.systemActive || "ONLINE"}</span>
-                    </motion.div>
-                  </div>
 
                   <div className="flex justify-between items-center">
                     <span className="text-xs text-white font-medium">USER:</span>
                     <span className="text-xs text-amber-300 font-bold">
                       {getLanguageName(userLanguage).slice(0, 3)}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-white font-medium">MEMORY:</span>
+                    <span className="text-xs text-cyan-300 font-bold">
+                      {messages.length > 0 ? `${messages.length} MSGS` : "EMPTY"}
                     </span>
                   </div>
 
@@ -795,12 +791,6 @@ export default function PipBoyInterface() {
                     <span className="text-xs text-white font-bold">{isSpeaking ? "SPEAK" : "READY"}</span>
                   </div>
 
-                  <div className="flex justify-between items-center col-span-2">
-                    <span className="text-xs text-white font-medium">MEMORY:</span>
-                    <span className="text-xs text-cyan-300 font-bold">
-                      {messages.length > 0 ? `${messages.length} MSGS` : "EMPTY"}
-                    </span>
-                  </div>
                 </div>
               </div>
 
