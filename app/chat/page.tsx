@@ -82,7 +82,7 @@ const PipBoyLanguageSelector = () => {
   }, [])
 
   return (
-    <div ref={dropdownRef} className="relative z-40">
+    <div ref={dropdownRef} className="relative">
       {/* Trigger Button - más compacto */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
@@ -725,6 +725,7 @@ export default function PipBoyInterface() {
           p-4 xl:p-6
           order-1 xl:order-1
           flex-shrink-0
+          z-50
         "
         >
           {/* Header responsive */}
