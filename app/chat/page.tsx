@@ -88,7 +88,7 @@ const PipBoyLanguageSelector = () => {
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          flex items-center space-x-1 px-2 py-1 border border-slate-500/50 bg-slate-900/70 font-mono text-xs
+          flex items-center space-x-1 px-2 py-1 border border-slate-500/50 bg-black/70 font-mono text-xs
           transition-all duration-300 hover:shadow-md
           ${
             isOpen
@@ -112,7 +112,7 @@ const PipBoyLanguageSelector = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 min-w-[180px] bg-slate-900/95 border border-slate-500/50 shadow-xl shadow-white/25 overflow-hidden z-50"
+            className="absolute top-full right-0 mt-2 min-w-[180px] bg-black/95 border border-slate-500/50 shadow-xl shadow-white/25 overflow-hidden z-50"
           >
             <div className="py-1">
               {availableLanguages.map((lang) => (
@@ -147,7 +147,7 @@ const PipBoyLanguageSelector = () => {
 
             {/* Footer compacto */}
             <motion.div
-              className="border-t border-slate-500/30 px-3 py-1 bg-slate-900/50"
+              className="border-t border-slate-500/30 px-3 py-1 bg-black/50"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
@@ -271,7 +271,7 @@ const TerminalMessage = ({
           {isUser ? "{'>'} USER_INPUT" : "{'>'} ALFRED_RESPONSE"}
           <span className="ml-2 text-amber-300">[{displayName}]</span>
         </div>
-        <div className={`p-3 border ${isUser ? "border-white/30" : "border-slate-500/50"} bg-slate-900/50`}>
+        <div className={`p-3 border ${isUser ? "border-white/30" : "border-slate-500/50"} bg-black/50`}>
           {message.content}
         </div>
       </div>
@@ -304,7 +304,7 @@ const PipBoyButton = ({
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full px-3 py-2 border-2 bg-slate-900/50 font-mono text-sm transition-all duration-300
+        w-full px-3 py-2 border-2 bg-black/50 font-mono text-sm transition-all duration-300
         ${colors[variant]}
         ${active ? "bg-emerald-400/20" : ""}
         ${disabled ? "opacity-50 cursor-not-allowed" : ""}
@@ -665,8 +665,23 @@ export default function PipBoyInterface() {
   // 🚀 NUEVO: Mostrar loading mientras se carga la conversación
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-slate-900 text-white font-mono flex items-center justify-center">
-        <div className="text-center">
+      <div className="min-h-screen bg-black text-white font-mono flex items-center justify-center relative overflow-hidden">
+        {/* CRT Screen Effect */}
+        <div className="absolute inset-0 bg-gradient-radial from-green-900/10 via-transparent to-black/50"></div>
+
+        {/* Scanlines Effect */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="h-full w-full bg-gradient-to-b from-transparent via-green-400/5 to-transparent bg-repeat-y animate-pulse"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(34, 197, 94, 0.03) 2px, rgba(34, 197, 94, 0.03) 4px)",
+              animation: "scanlines 0.1s linear infinite",
+            }}
+          ></div>
+        </div>
+
+        <div className="text-center relative z-10">
           <div className="text-6xl mb-4">🤖</div>
           <div className="text-xl mb-4">LOADING A.L.F.R.E.D...</div>
           <div className="flex space-x-1 justify-center">
@@ -685,21 +700,20 @@ export default function PipBoyInterface() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-200 font-mono overflow-hidden">
-      {/* Fondo con efecto de líneas de escaneo */}
-      <div className="fixed inset-0 opacity-10">
+    <div className="min-h-screen bg-black text-slate-200 font-mono overflow-hidden relative">
+      {/* CRT Screen Effect - Igual que en home */}
+      <div className="absolute inset-0 bg-gradient-radial from-green-900/10 via-transparent to-black/50"></div>
+
+      {/* Scanlines Effect - Igual que en home */}
+      <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute inset-0"
+          className="h-full w-full bg-gradient-to-b from-transparent via-green-400/5 to-transparent bg-repeat-y animate-pulse"
           style={{
-            backgroundImage: `repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(148, 163, 184, 0.1) 2px,
-            rgba(148, 163, 184, 0.1) 4px
-          )`,
+            backgroundImage:
+              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(34, 197, 94, 0.03) 2px, rgba(34, 197, 94, 0.03) 4px)",
+            animation: "scanlines 0.1s linear infinite",
           }}
-        />
+        ></div>
       </div>
 
       {/* Contenedor principal estilo Pip-Boy */}
@@ -708,7 +722,7 @@ export default function PipBoyInterface() {
         <motion.div
           initial={{ x: -300 }}
           animate={{ x: 0 }}
-          className="w-80 bg-slate-900/80 border-r-2 border-slate-500/50 p-6"
+          className="w-80 bg-black/80 border-r-2 border-slate-500/50 p-6"
         >
           {/* Header con selector de idioma */}
           <div className="text-center mb-8">
@@ -733,7 +747,7 @@ export default function PipBoyInterface() {
           </div>
 
           {/* Status Panel */}
-          <Card className="bg-slate-900/50 border-slate-500/50 p-4 mb-6">
+          <Card className="bg-black/50 border-slate-500/50 p-4 mb-6">
             <div className="space-y-3">
               {/* Header del Status Panel con selector de idioma */}
               <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-500/30">
@@ -796,7 +810,7 @@ export default function PipBoyInterface() {
           <motion.div
             initial={{ y: -50 }}
             animate={{ y: 0 }}
-            className="bg-slate-900/80 border-b-2 border-slate-500/50 p-4"
+            className="bg-black/80 border-b-2 border-slate-500/50 p-4"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
@@ -820,7 +834,7 @@ export default function PipBoyInterface() {
           </motion.div>
 
           {/* Área de mensajes */}
-          <div ref={messagesContainerRef} className="flex-1 p-6 overflow-y-auto bg-slate-900/60 pipboy-scrollbar">
+          <div ref={messagesContainerRef} className="flex-1 p-6 overflow-y-auto bg-black/60 pipboy-scrollbar">
             <AnimatePresence>
               {messages.length === 0 ? (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mt-20">
@@ -882,11 +896,7 @@ export default function PipBoyInterface() {
           </div>
 
           {/* Controles de interacción - Nueva ubicación */}
-          <motion.div
-            initial={{ y: 50 }}
-            animate={{ y: 0 }}
-            className="bg-slate-900/80 border-t-2 border-slate-500/50 p-4"
-          >
+          <motion.div initial={{ y: 50 }} animate={{ y: 0 }} className="bg-black/80 border-t-2 border-slate-500/50 p-4">
             {/* Área de botones principales - Layout adaptativo pero consistente */}
             <div className="flex justify-center items-center space-x-3 mb-4 flex-wrap gap-3">
               {/* Botón principal de micrófono - Ancho fijo */}
@@ -1056,11 +1066,7 @@ export default function PipBoyInterface() {
           </motion.div>
 
           {/* Footer con información */}
-          <motion.div
-            initial={{ y: 50 }}
-            animate={{ y: 0 }}
-            className="bg-slate-900/80 border-t-2 border-slate-500/50 p-4"
-          >
+          <motion.div initial={{ y: 50 }} animate={{ y: 0 }} className="bg-black/80 border-t-2 border-slate-500/50 p-4">
             <div className="flex items-center justify-between text-xs text-white">
               <div className="flex space-x-6">
                 <div>{t.neuralEngine || "NEURAL_ENGINE"}: GROQ_LPU</div>
@@ -1095,7 +1101,7 @@ export default function PipBoyInterface() {
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
-              className="bg-slate-900 border-2 border-red-400 p-6 max-w-md"
+              className="bg-black border-2 border-red-400 p-6 max-w-md"
             >
               <div className="text-red-400 font-mono">
                 <div className="text-lg mb-2">SYSTEM_ERROR</div>
@@ -1108,6 +1114,15 @@ export default function PipBoyInterface() {
 
       {/* Estilos personalizados para scrollbar estilo barras de sonido */}
       <style jsx global>{`
+        @keyframes scanlines {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100vh); }
+        }
+        
+        .bg-gradient-radial {
+          background: radial-gradient(circle at center, var(--tw-gradient-stops));
+        }
+
         /* Scrollbar personalizado con estética de barras de sonido */
         .pipboy-scrollbar::-webkit-scrollbar {
           width: 14px;
