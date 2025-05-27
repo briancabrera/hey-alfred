@@ -11,7 +11,6 @@ import { useAudioRecorder } from "@/hooks/use-audio-recorder"
 import { useTextToSpeech } from "@/hooks/use-text-to-speech"
 import { useLanguage } from "@/contexts/language-context"
 import type { Language } from "@/utils/translations"
-// Importar las funciones actualizadas:
 
 import {
   detectLanguage,
