@@ -255,8 +255,6 @@ const TerminalMessage = ({
   alfredLang: string
 }) => {
   const { t } = useLanguage()
-
-  // Use the passed language states instead of detecting
   const displayLang = isUser ? userLang : alfredLang
   const displayName = getLanguageName(displayLang)
 
@@ -264,14 +262,14 @@ const TerminalMessage = ({
     <motion.div
       initial={{ opacity: 0, x: isUser ? 20 : -20 }}
       animate={{ opacity: 1, x: 0 }}
-      className={`mb-4 font-mono text-sm ${isUser ? "text-right" : "text-left"}`}
+      className={`mb-3 lg:mb-4 font-mono text-xs lg:text-sm ${isUser ? "text-right" : "text-left"}`}
     >
-      <div className={`inline-block max-w-[80%] ${isUser ? "text-white" : "text-white"}`}>
+      <div className={`inline-block max-w-[90%] lg:max-w-[80%] ${isUser ? "text-white" : "text-white"}`}>
         <div className="text-xs opacity-70 mb-1">
           {isUser ? "{'>'} USER_INPUT" : "{'>'} ALFRED_RESPONSE"}
           <span className="ml-2 text-amber-300">[{displayName}]</span>
         </div>
-        <div className={`p-3 border ${isUser ? "border-white/30" : "border-slate-500/50"} bg-black/50`}>
+        <div className={`p-2 lg:p-3 border ${isUser ? "border-white/30" : "border-slate-500/50"} bg-black/50`}>
           {message.content}
         </div>
       </div>
@@ -334,11 +332,11 @@ const ResetConversationButton = ({ onReset }: { onReset: () => void }) => {
   }
 
   return (
-    <div className="w-36">
+    <div className="w-28 lg:w-36">
       <PipBoyButton onClick={handleReset} variant={showConfirm ? "danger" : "warning"}>
-        <div className="flex items-center justify-center space-x-2">
-          {showConfirm ? <Trash2 className="w-4 h-4" /> : <RotateCcw className="w-4 h-4" />}
-          <span className="text-sm">{showConfirm ? "CONFIRM?" : "RESET"}</span>
+        <div className="flex items-center justify-center space-x-1 lg:space-x-2">
+          {showConfirm ? <Trash2 className="w-3 h-3 lg:w-4 lg:h-4" /> : <RotateCcw className="w-3 h-3 lg:w-4 lg:h-4" />}
+          <span className="text-xs lg:text-sm">{showConfirm ? "CONFIRM?" : "RESET"}</span>
         </div>
       </PipBoyButton>
     </div>
@@ -716,107 +714,107 @@ export default function PipBoyInterface() {
         ></div>
       </div>
 
-      {/* Contenedor principal estilo Pip-Boy */}
-      <div className="relative z-10 h-screen flex">
-        {/* Panel izquierdo - Avatar y controles */}
+      {/* Contenedor principal responsive */}
+      <div className="relative z-10 h-screen flex flex-col lg:flex-row">
+        {/* Panel izquierdo - Responsive */}
         <motion.div
           initial={{ x: -300 }}
           animate={{ x: 0 }}
-          className="w-80 bg-black/80 border-r-2 border-slate-500/50 p-6"
+          className="
+          w-full lg:w-80 
+          bg-black/80 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-500/50 
+          p-4 lg:p-6
+          order-1 lg:order-1
+          flex-shrink-0
+        "
         >
-          {/* Header con selector de idioma */}
-          <div className="text-center mb-8">
-            {/* Header sin selector de idioma */}
+          {/* Header responsive */}
+          <div className="text-center mb-4 lg:mb-8">
             <motion.h1
-              className="text-2xl font-bold tracking-wider mb-2 text-white"
+              className="text-xl lg:text-2xl font-bold tracking-wider mb-2 text-white"
               animate={{ textShadow: ["0 0 5px #ffffff", "0 0 10px #ffffff", "0 0 5px #ffffff"] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
             >
               A.L.F.R.E.D
             </motion.h1>
-            <div className="text-xs opacity-70 text-white">{t.alfredSubtitle1}</div>
-            <div className="text-xs opacity-70 text-white">{t.alfredSubtitle2}</div>
+            <div className="text-xs opacity-70 text-white hidden lg:block">{t.alfredSubtitle1}</div>
+            <div className="text-xs opacity-70 text-white hidden lg:block">{t.alfredSubtitle2}</div>
           </div>
 
-          {/* Avatar */}
-          <div className="mb-10">
-            <AlfredAudioVisualizer
-              isActive={isActive || isLoading || isProcessingUnsupported}
-              isSpeaking={isSpeaking}
-            />
+          {/* Avatar responsive */}
+          <div className="mb-4 lg:mb-10 flex justify-center lg:block">
+            <div className="scale-75 lg:scale-100">
+              <AlfredAudioVisualizer
+                isActive={isActive || isLoading || isProcessingUnsupported}
+                isSpeaking={isSpeaking}
+              />
+            </div>
           </div>
 
-          {/* Status Panel */}
-          <Card className="bg-black/50 border-slate-500/50 p-4 mb-6">
-            <div className="space-y-3">
+          {/* Status Panel responsive */}
+          <Card className="bg-black/50 border-slate-500/50 p-3 lg:p-4 mb-4 lg:mb-6">
+            <div className="space-y-2 lg:space-y-3">
               {/* Header del Status Panel con selector de idioma */}
-              <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-500/30">
-                <span className="text-sm font-bold text-white tracking-wider">SYSTEM_STATUS</span>
+              <div className="flex justify-between items-center mb-2 lg:mb-4 pb-2 border-b border-slate-500/30">
+                <span className="text-xs lg:text-sm font-bold text-white tracking-wider">SYSTEM_STATUS</span>
                 <PipBoyLanguageSelector />
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-white font-medium">SYSTEM_STATUS:</span>
-                <motion.div
-                  className="flex items-center space-x-2"
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                >
-                  <div className="w-2 h-2 bg-white rounded-full" />
-                  <span className="text-xs text-white font-bold">{t.systemActive || "ONLINE"}</span>
-                </motion.div>
-              </div>
+              {/* Status items responsive - Grid en mobile */}
+              <div className="grid grid-cols-2 lg:block gap-2 lg:gap-0 lg:space-y-3">
+                <div className="flex justify-between items-center lg:block lg:space-y-1">
+                  <span className="text-xs text-white font-medium">STATUS:</span>
+                  <motion.div
+                    className="flex items-center space-x-1 lg:space-x-2"
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                  >
+                    <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-white rounded-full" />
+                    <span className="text-xs text-white font-bold">{t.systemActive || "ONLINE"}</span>
+                  </motion.div>
+                </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-white font-medium">USER_LANG:</span>
-                <span className="text-xs text-amber-300 font-bold">{getLanguageName(userLanguage)}</span>
-              </div>
+                <div className="flex justify-between items-center lg:block lg:space-y-1">
+                  <span className="text-xs text-white font-medium">USER:</span>
+                  <span className="text-xs text-amber-300 font-bold">{getLanguageName(userLanguage).slice(0, 3)}</span>
+                </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-white font-medium">AI_LANG:</span>
-                <span className="text-xs text-cyan-300 font-bold">{getLanguageName(currentLanguage)}</span>
-              </div>
+                <div className="flex justify-between items-center lg:block lg:space-y-1">
+                  <span className="text-xs text-white font-medium">AI:</span>
+                  <span className="text-xs text-cyan-300 font-bold">
+                    {getLanguageName(currentLanguage).slice(0, 3)}
+                  </span>
+                </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-white font-medium">VOICE_MODE:</span>
-                <span className="text-xs text-white font-bold">{isSpeaking ? "SPEAKING" : "READY"}</span>
-              </div>
+                <div className="flex justify-between items-center lg:block lg:space-y-1">
+                  <span className="text-xs text-white font-medium">VOICE:</span>
+                  <span className="text-xs text-white font-bold">{isSpeaking ? "SPEAK" : "READY"}</span>
+                </div>
 
-              {/* 🚀 NUEVO: Indicador de persistencia */}
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-white font-medium">MEMORY:</span>
-                <span className="text-xs text-cyan-300 font-bold">
-                  {messages.length > 0 ? `${messages.length} MSGS` : "EMPTY"}
-                </span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-white font-medium">INTERFACE:</span>
-                <span className="text-xs text-cyan-300 font-bold">PIP-BOY_V3.0</span>
+                <div className="flex justify-between items-center lg:block lg:space-y-1 col-span-2 lg:col-span-1">
+                  <span className="text-xs text-white font-medium">MEMORY:</span>
+                  <span className="text-xs text-cyan-300 font-bold">
+                    {messages.length > 0 ? `${messages.length} MSGS` : "EMPTY"}
+                  </span>
+                </div>
               </div>
             </div>
           </Card>
-
-          {/* Controles */}
-
-          {/* Indicador de grabación */}
-
-          {/* Audio capturado */}
         </motion.div>
 
-        {/* Panel principal - Terminal de conversación */}
-        <div className="flex-1 flex flex-col">
-          {/* Header del terminal */}
+        {/* Panel principal - Responsive */}
+        <div className="flex-1 flex flex-col order-2 lg:order-2 min-h-0">
+          {/* Header del terminal responsive */}
           <motion.div
             initial={{ y: -50 }}
             animate={{ y: 0 }}
-            className="bg-black/80 border-b-2 border-slate-500/50 p-4"
+            className="bg-black/80 border-b-2 border-slate-500/50 p-2 lg:p-4 flex-shrink-0"
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="text-lg font-bold text-white">DIALOGUE_TERMINAL</div>
+              <div className="flex items-center space-x-2 lg:space-x-4">
+                <div className="text-sm lg:text-lg font-bold text-white">DIALOGUE_TERMINAL</div>
                 <motion.div
-                  className="text-amber-300 text-xs opacity-70"
+                  className="text-amber-300 text-xs opacity-70 hidden md:block"
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                 >
@@ -824,32 +822,38 @@ export default function PipBoyInterface() {
                 </motion.div>
               </div>
 
-              <div className="flex items-center space-x-4 text-white">
-                <div className="text-xs">MSGS: {messages.length}</div>
-                <div className="text-xs">STATUS: {isLoading || isProcessingUnsupported ? "PROCESSING" : "READY"}</div>
-                {/* 🚀 NUEVO: Indicador de persistencia */}
-                <div className="text-xs text-cyan-300">💾 PERSISTENT</div>
+              <div className="flex items-center space-x-2 lg:space-x-4 text-white text-xs">
+                <div className="hidden sm:block">MSGS: {messages.length}</div>
+                <div>STATUS: {isLoading || isProcessingUnsupported ? "PROC" : "READY"}</div>
+                <div className="text-cyan-300 hidden lg:block">💾 PERSISTENT</div>
               </div>
             </div>
           </motion.div>
 
-          {/* Área de mensajes */}
-          <div ref={messagesContainerRef} className="flex-1 p-6 overflow-y-auto bg-black/60 pipboy-scrollbar">
+          {/* Área de mensajes responsive */}
+          <div
+            ref={messagesContainerRef}
+            className="flex-1 p-3 lg:p-6 overflow-y-auto bg-black/60 pipboy-scrollbar min-h-0"
+          >
+            {/* Contenido de mensajes igual pero con padding responsive */}
             <AnimatePresence>
               {messages.length === 0 ? (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mt-20">
-                  <div className="text-6xl mb-4">🤖</div>
-                  <div className="text-xl mb-4 text-white">{t.systemInitialized || "SYSTEM_INITIALIZED"}</div>
-                  <div className="text-sm opacity-70 mb-8 text-white">
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mt-10 lg:mt-20">
+                  <div className="text-4xl lg:text-6xl mb-4">🤖</div>
+                  <div className="text-lg lg:text-xl mb-4 text-white">
+                    {t.systemInitialized || "SYSTEM_INITIALIZED"}
+                  </div>
+                  <div className="text-sm opacity-70 mb-4 lg:mb-8 text-white">
                     {t.alsoKnownAs || "A.L.F.R.E.D READY FOR COMMUNICATION"}
                   </div>
-                  <div className="text-xs space-y-2 max-w-md mx-auto text-white">
-                    <div>{">"} SUPPORTED_LANGUAGES: ES | EN | FR | IT | PT</div>
-                    <div>{">"} VOICE_MODE: RECORD → STOP → TRANSMIT</div>
-                    <div>{">"} REAL_TIME_TRANSLATION: ENABLED</div>
+                  <div className="text-xs space-y-1 lg:space-y-2 max-w-sm lg:max-w-md mx-auto text-white px-4">
+                    <div>{">"} LANGUAGES: ES | EN | FR | IT | PT</div>
+                    <div className="hidden lg:block">{">"} VOICE_MODE: RECORD → STOP → TRANSMIT</div>
+                    <div className="lg:hidden">{">"} VOICE: REC → STOP → SEND</div>
+                    <div className="hidden lg:block">{">"} REAL_TIME_TRANSLATION: ENABLED</div>
                     <div className="text-cyan-300">{">"} CONVERSATION_PERSISTENCE: ACTIVE</div>
                     <div className="text-amber-300">
-                      {">"} {t.tryExample || 'TRY: "Hello Alfred, how are you?"'}
+                      {">"} {t.tryExample || 'TRY: "Hello Alfred"'}
                     </div>
                   </div>
                 </motion.div>
@@ -866,7 +870,7 @@ export default function PipBoyInterface() {
               )}
             </AnimatePresence>
 
-            {/* Indicador de carga */}
+            {/* Indicador de carga igual */}
             <AnimatePresence>
               {(isLoading || isProcessingUnsupported) && (
                 <motion.div
@@ -895,31 +899,35 @@ export default function PipBoyInterface() {
             </AnimatePresence>
           </div>
 
-          {/* Controles de interacción - Nueva ubicación */}
-          <motion.div initial={{ y: 50 }} animate={{ y: 0 }} className="bg-black/80 border-t-2 border-slate-500/50 p-4">
-            {/* Área de botones principales - Layout adaptativo pero consistente */}
-            <div className="flex justify-center items-center space-x-3 mb-4 flex-wrap gap-3">
-              {/* Botón principal de micrófono - Ancho fijo */}
-              <div className="w-36">
+          {/* Controles responsive */}
+          <motion.div
+            initial={{ y: 50 }}
+            animate={{ y: 0 }}
+            className="bg-black/80 border-t-2 border-slate-500/50 p-2 lg:p-4 flex-shrink-0"
+          >
+            {/* Botones principales responsive */}
+            <div className="flex justify-center items-center space-x-2 lg:space-x-3 mb-3 lg:mb-4 flex-wrap gap-2 lg:gap-3">
+              {/* Botón principal de micrófono responsive */}
+              <div className="w-28 lg:w-36">
                 <PipBoyButton onClick={handleMicClick} active={isRecording || !!audioBlob} variant={micState.variant}>
-                  <div className="flex items-center justify-center space-x-2">
-                    <micState.icon className="w-4 h-4" />
-                    <span className="text-sm">{micState.text}</span>
+                  <div className="flex items-center justify-center space-x-1 lg:space-x-2">
+                    <micState.icon className="w-3 h-3 lg:w-4 lg:h-4" />
+                    <span className="text-xs lg:text-sm">{micState.text}</span>
                   </div>
                 </PipBoyButton>
               </div>
 
-              {/* Botón MUTE - Ancho fijo */}
-              <div className="w-36">
+              {/* Botón MUTE responsive */}
+              <div className="w-28 lg:w-36">
                 <PipBoyButton onClick={stop} disabled={!isSpeaking} variant="danger">
-                  <div className="flex items-center justify-center space-x-2">
-                    <VolumeX className="w-4 h-4" />
-                    <span className="text-sm">{t.mute || "MUTE_VOICE"}</span>
+                  <div className="flex items-center justify-center space-x-1 lg:space-x-2">
+                    <VolumeX className="w-3 h-3 lg:w-4 lg:h-4" />
+                    <span className="text-xs lg:text-sm">{t.mute || "MUTE"}</span>
                   </div>
                 </PipBoyButton>
               </div>
 
-              {/* Botón PREVIEW - Solo visible en paso 3 */}
+              {/* Resto de botones con tamaños responsive similares */}
               <AnimatePresence>
                 {audioBlob && !isRecording && (
                   <motion.div
@@ -927,17 +935,14 @@ export default function PipBoyInterface() {
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.8, x: -20 }}
                     transition={{ duration: 0.3 }}
-                    className="w-36"
+                    className="w-28 lg:w-36"
                   >
                     <PipBoyButton
                       onClick={() => {
                         if (audioBlob) {
-                          // Crear URL del blob y reproducir
                           const audioUrl = URL.createObjectURL(audioBlob)
                           const audio = new Audio(audioUrl)
                           audio.play().catch(console.error)
-
-                          // Limpiar URL después de la reproducción
                           audio.onended = () => {
                             URL.revokeObjectURL(audioUrl)
                           }
@@ -945,18 +950,18 @@ export default function PipBoyInterface() {
                       }}
                       variant="warning"
                     >
-                      <div className="flex items-center justify-center space-x-2">
-                        <Volume2 className="w-4 h-4" />
-                        <span className="text-sm">PREVIEW</span>
+                      <div className="flex items-center justify-center space-x-1 lg:space-x-2">
+                        <Volume2 className="w-3 h-3 lg:w-4 lg:h-4" />
+                        <span className="text-xs lg:text-sm">PREVIEW</span>
                       </div>
                     </PipBoyButton>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* Botón REPETIR - Visible en estado inicial cuando hay respuestas de Alfred */}
+              {/* Botón REPETIR responsive */}
               {!isRecording && !audioBlob && (
-                <div className="w-36">
+                <div className="w-28 lg:w-36">
                   <PipBoyButton
                     onClick={() => {
                       const lastMessage = messages[messages.length - 1]
@@ -967,15 +972,15 @@ export default function PipBoyInterface() {
                     disabled={!messages.length || messages[messages.length - 1]?.role !== "assistant"}
                     variant="warning"
                   >
-                    <div className="flex items-center justify-center space-x-2">
-                      <Volume2 className="w-4 h-4" />
-                      <span className="text-sm">{t.repeat || "REPEAT"}</span>
+                    <div className="flex items-center justify-center space-x-1 lg:space-x-2">
+                      <Volume2 className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <span className="text-xs lg:text-sm">{t.repeat || "REPEAT"}</span>
                     </div>
                   </PipBoyButton>
                 </div>
               )}
 
-              {/* Botón CANCELAR Y VOLVER A GRABAR - Solo visible en paso 3 */}
+              {/* Botón RE_RECORD responsive */}
               <AnimatePresence>
                 {audioBlob && !isRecording && (
                   <motion.div
@@ -983,7 +988,7 @@ export default function PipBoyInterface() {
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.8, x: 20 }}
                     transition={{ duration: 0.3 }}
-                    className="w-36"
+                    className="w-28 lg:w-36"
                   >
                     <PipBoyButton
                       onClick={() => {
@@ -991,22 +996,25 @@ export default function PipBoyInterface() {
                       }}
                       variant="warning"
                     >
-                      <div className="flex items-center justify-center space-x-2">
-                        <Mic className="w-4 h-4" />
-                        <span className="text-sm">RE_RECORD</span>
+                      <div className="flex items-center justify-center space-x-1 lg:space-x-2">
+                        <Mic className="w-3 h-3 lg:w-4 lg:h-4" />
+                        <span className="text-xs lg:text-sm">RE_REC</span>
                       </div>
                     </PipBoyButton>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* 🚀 NUEVO: Botón RESET - Solo visible cuando no hay grabación activa */}
-              {!isRecording && !audioBlob && <ResetConversationButton onReset={resetConversation} />}
+              {/* Botón RESET responsive */}
+              {!isRecording && !audioBlob && (
+                <div className="w-28 lg:w-36">
+                  <ResetConversationButton onReset={resetConversation} />
+                </div>
+              )}
             </div>
 
-            {/* Área de indicadores de estado - Altura fija */}
-            <div className="h-16 flex items-center justify-center">
-              {/* Indicador de grabación */}
+            {/* Indicadores de estado responsive */}
+            <div className="h-12 lg:h-16 flex items-center justify-center">
               <AnimatePresence mode="wait">
                 {isRecording && (
                   <motion.div
@@ -1014,46 +1022,44 @@ export default function PipBoyInterface() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="w-full max-w-md p-3 border border-red-400/50 bg-red-400/10 rounded"
+                    className="w-full max-w-sm lg:max-w-md p-2 lg:p-3 border border-red-400/50 bg-red-400/10 rounded"
                   >
                     <div className="flex items-center justify-center space-x-2">
                       <motion.div
-                        className="w-3 h-3 bg-red-400 rounded-full"
+                        className="w-2 h-2 lg:w-3 lg:h-3 bg-red-400 rounded-full"
                         animate={{ opacity: [1, 0.3, 1] }}
                         transition={{ duration: 0.5, repeat: Number.POSITIVE_INFINITY }}
                       />
                       <span className="text-xs text-red-400 font-mono">
-                        {t.recordingAudio || "GRABANDO AUDIO..."} (Presiona para detener)
+                        {t.recordingAudio || "RECORDING..."} (Tap to stop)
                       </span>
                     </div>
                   </motion.div>
                 )}
 
-                {/* Audio capturado */}
                 {audioBlob && !isRecording && (
                   <motion.div
                     key="captured"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="w-full max-w-md p-3 border border-amber-300/50 bg-amber-300/10 rounded"
+                    className="w-full max-w-sm lg:max-w-md p-2 lg:p-3 border border-amber-300/50 bg-amber-300/10 rounded"
                   >
                     <div className="text-center">
                       <div className="text-xs text-amber-300 font-mono">
-                        ✓ {t.audioCaptured || "AUDIO_CAPTURADO"}: {Math.round(audioBlob.size / 1024)}KB
+                        ✓ {t.audioCaptured || "AUDIO_CAPTURED"}: {Math.round(audioBlob.size / 1024)}KB
                       </div>
                       <div className="text-xs text-amber-300 mt-1 font-mono">PRESS_TRANSMIT_TO_SEND</div>
                     </div>
                   </motion.div>
                 )}
 
-                {/* Estado por defecto - espacio reservado */}
                 {!isRecording && !audioBlob && (
                   <motion.div
                     key="ready"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="w-full max-w-md p-3 border border-slate-500/30 bg-slate-600/5 rounded"
+                    className="w-full max-w-sm lg:max-w-md p-2 lg:p-3 border border-slate-500/30 bg-slate-600/5 rounded"
                   >
                     <div className="text-center">
                       <div className="text-xs text-white font-mono opacity-70">🎤 VOICE_INTERFACE_READY</div>
@@ -1065,46 +1071,50 @@ export default function PipBoyInterface() {
             </div>
           </motion.div>
 
-          {/* Footer con información */}
-          <motion.div initial={{ y: 50 }} animate={{ y: 0 }} className="bg-black/80 border-t-2 border-slate-500/50 p-4">
+          {/* Footer responsive */}
+          <motion.div
+            initial={{ y: 50 }}
+            animate={{ y: 0 }}
+            className="bg-black/80 border-t-2 border-slate-500/50 p-2 lg:p-4 flex-shrink-0"
+          >
             <div className="flex items-center justify-between text-xs text-white">
-              <div className="flex space-x-6">
-                <div>{t.neuralEngine || "NEURAL_ENGINE"}: GROQ_LPU</div>
-                <div>{t.linguisticModel || "MODEL"}: LLAMA_3.1_8B</div>
-                <div>{t.audioProcessor || "AUDIO"}: WHISPER_V3</div>
-                {/* 🚀 NUEVO: Indicador de persistencia */}
-                <div className="text-cyan-300">STORAGE: LOCAL_PERSISTENT</div>
+              <div className="flex space-x-2 lg:space-x-6 overflow-x-auto">
+                <div className="whitespace-nowrap">{t.neuralEngine || "ENGINE"}: GROQ</div>
+                <div className="whitespace-nowrap hidden sm:block">{t.linguisticModel || "MODEL"}: LLAMA_3.1</div>
+                <div className="whitespace-nowrap hidden md:block">{t.audioProcessor || "AUDIO"}: WHISPER_V3</div>
+                <div className="text-cyan-300 whitespace-nowrap hidden lg:block">STORAGE: LOCAL_PERSISTENT</div>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 flex-shrink-0">
                 <motion.div
-                  className="w-2 h-2 bg-white rounded-full"
+                  className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-white rounded-full"
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                 />
-                <span>QUANTUM_LINK_STABLE</span>
+                <span className="hidden sm:block">QUANTUM_LINK_STABLE</span>
+                <span className="sm:hidden">STABLE</span>
               </div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Error overlay */}
+      {/* Error overlay igual */}
       <AnimatePresence>
         {error && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-red-900/20 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-red-900/20 flex items-center justify-center z-50 p-4"
           >
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
-              className="bg-black border-2 border-red-400 p-6 max-w-md"
+              className="bg-black border-2 border-red-400 p-4 lg:p-6 max-w-sm lg:max-w-md w-full"
             >
               <div className="text-red-400 font-mono">
-                <div className="text-lg mb-2">SYSTEM_ERROR</div>
+                <div className="text-base lg:text-lg mb-2">SYSTEM_ERROR</div>
                 <div className="text-sm">{error}</div>
               </div>
             </motion.div>
@@ -1112,7 +1122,7 @@ export default function PipBoyInterface() {
         )}
       </AnimatePresence>
 
-      {/* Estilos personalizados para scrollbar estilo barras de sonido */}
+      {/* Estilos igual pero con media queries adicionales */}
       <style jsx global>{`
         @keyframes scanlines {
           0% { transform: translateY(-100%); }
@@ -1122,6 +1132,21 @@ export default function PipBoyInterface() {
         .bg-gradient-radial {
           background: radial-gradient(circle at center, var(--tw-gradient-stops));
         }
+
+        /* Responsive scrollbar */
+        @media (max-width: 1024px) {
+          .pipboy-scrollbar::-webkit-scrollbar {
+            width: 8px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .pipboy-scrollbar::-webkit-scrollbar {
+            width: 6px;
+          }
+        }
+
+        /* Resto de estilos de scrollbar igual... */
 
         /* Scrollbar personalizado con estética de barras de sonido */
         .pipboy-scrollbar::-webkit-scrollbar {
